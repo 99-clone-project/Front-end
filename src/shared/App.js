@@ -1,9 +1,20 @@
 import "./App.css";
+import { BrowserRouter, Route } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
+
+import PostList from "../pages/PostList";
+import PostWrite from "../pages/PostWrite";
+import { Router } from "react-router";
 
 function App() {
   return (
     <div className="App">
-      <h1>리액트 팀 화이팅입니다❤👍</h1>
+      <ConnectedRouter history={history}>
+        <Route path="/" exact component={PostList} />
+        {/* 이거 /posts로 바꿔야하는건가요? */}
+        <Route path="/postwrite" exact component={PostWrite} />
+      </ConnectedRouter>
     </div>
   );
 }
