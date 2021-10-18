@@ -1,19 +1,57 @@
 {
-	"posts": [
-		{
-			"title": "제목1",
-			"content": "여기에 내용이 들어가야 합니다1",
-			"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzIiKMQJjundNhRhkqo-VwfcUKKIzWlulhpQ&usqp=CAU"
-		},
-		{
-			"title": "제목1",
-			"content": "여기에 내용이 들어가야 합니다1",
-			"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzIiKMQJjundNhRhkqo-VwfcUKKIzWlulhpQ&usqp=CAU"
-		},
-		{
-			"title": "제목1",
-			"content": "여기에 내용이 들어가야 합니다1",
-			"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzIiKMQJjundNhRhkqo-VwfcUKKIzWlulhpQ&usqp=CAU"
-		}
-	]
+  "posts": [
+    {
+      "id": "1",
+      "title": "제목1",
+      "contents": "여기에 내용이 들어가야 합니다1",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzIiKMQJjundNhRhkqo-VwfcUKKIzWlulhpQ&usqp=CAU"
+    },
+    {
+      "id": "2",
+      "title": "제목1",
+      "contents": "여기에 내용이 들어가야 합니다1",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzIiKMQJjundNhRhkqo-VwfcUKKIzWlulhpQ&usqp=CAU"
+    },
+    {
+      "id": "3",
+      "title": "제목1",
+      "contents": "여기에 내용이 들어가야 합니다1",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzIiKMQJjundNhRhkqo-VwfcUKKIzWlulhpQ&usqp=CAU"
+    },
+    {
+      "title": "dsfdsfdsf",
+      "contents": "dsfdssfddf",
+      "id": "Eyp5evP"
+    },
+    {
+      "title": "dfgdfgdfgfg",
+      "contents": "gdfgdfg",
+      "id": "9xc-xPA"
+    },
+    {
+      "title": "dsfsdfd",
+      "contents": "sdfsdfs",
+      "id": "WDcQAD8"
+    },
+    {
+      "title": "이건제목",
+      "contents": "이건 컨텐츠",
+      "id": "7Y9Pfqr"
+    },
+    {
+      "title": "ㅇㄴㄹㄴㅇㄹ",
+      "contents": "ㄴㅇㄹㄴㅇㄹ",
+      "id": "VZcBZ3p"
+    },
+    {
+      "title": "ㅇㄴㄹㄴㅇㄹㄴㅇㄹ",
+      "contents": "ㅇㄴㄹㄴㅇㄹ",
+      "id": "giiOkuL"
+    },
+    {
+      "title": "ㄴㅇㄹㅇㄴㄹㄹㄴㅇ",
+      "contents": "ㅇㄹㅇㄴㄹㄹ",
+      "id": "9UmcZT0"
+    }
+  ]
 }

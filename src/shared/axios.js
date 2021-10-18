@@ -11,5 +11,6 @@ const instance = axios.create({
 });
 
 export const apis = {
-  addPost: (post) => instance.post("/posts", post),
+  // post는 /posts라는 주소에다가 post라는 이름으로 그 안에 담긴 값을 준다.
+  addPostAX: (post) => instance.post("/posts", post),
 };
