@@ -12,9 +12,19 @@ const Detail = (props) => {
   const postId = props.match.params.postId;
   console.log("postId", postId);
 
+  const postList = useSelector((state) => state.post.list);
+
+  // postList.filter((post) => post.id === postId);
+  g;
+  console.log(postList);
   const title = useSelector((state) => state.post.list.title);
   const contents = useSelector((state) => state.post.list.contents);
   // console.log("title", title);
+
+  const deletePost = () => {
+    // console.log(postId);
+    dispatch(postActions.deletePostMD(postId));
+  };
 
   React.useEffect(() => {
     dispatch(postActions.getPostMD(postId));
@@ -39,7 +49,7 @@ const Detail = (props) => {
           </div>
           <div>
             <button>수정</button>
-            <button>삭제</button>
+            <button onClick={deletePost}>삭제</button>
           </div>
         </Info>
         <Content>

@@ -7,11 +7,13 @@ import { apis } from "../../shared/axios";
 
 const ADD_POST = "ADD_POST";
 const GET_POST = "GET_POST";
+const DELETE_POST = "DELETE_POST";
 
 // action creators
 // post 를 받아서 post로 보낸다.
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const getPost = createAction(GET_POST, (postList) => ({ postList }));
+const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
 
 // initialState
 const initialState = {
@@ -47,10 +49,11 @@ const getPostMD = (postId, post) => {
         console.log(res);
         const postList = res.data;
         if (postId) {
-          const post = postList.filter((post) => post.id === postId)[0];
+          const post = postList.filter((post) => post.id === Number(postId))[0];
           console.log("포스트아이디가 있을때 포스트", post);
           const title = post.title;
-          const contents = post.contetns;
+          console.log(title);
+          const contents = post.contents;
           dispatch(getPost(post, title, contents));
         } else {
           console.log(res);
@@ -62,6 +65,19 @@ const getPostMD = (postId, post) => {
       .catch((err) => {
         // console.log(err);
       });
+  };
+};
+
+const deletePostMD = (postId) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .deletePostAX(postId)
+      .then((res) => {
+        console.log(res);
+        dispatch(deletePost(postId));
+        history.push("/");
+      })
+      .catch((err) => console.log(err));
   };
 };
 
@@ -77,6 +93,13 @@ export default handleActions(
         draft.list = action.payload.postList;
         // console.log("draft.list", draft.list);
       }),
+    [DELETE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        console.log(action.payload.postId);
+        draft.list = draft.list.filter(
+          (post) => post.id !== action.payload.postId
+        );
+      }),
   },
   initialState
 );
@@ -86,6 +109,8 @@ const actionCreators = {
   addPostMD,
   getPost,
   getPostMD,
+  deletePost,
+  deletePostMD,
 };
 
 export { actionCreators };
