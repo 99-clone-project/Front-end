@@ -1,14 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useParams } from "react-router-dom";
+import { history } from "../redux/configureStore";
 import CommentList from "../components/CommentList";
 import CommentWrite from "../components/CommentWrite";
 
-const PostDetail = (props) => {
+const Detail = (props) => {
+  const dispatch = useDispatch();
+  console.log("props.match", props.match);
+
+  const postId = props.match.params.postId;
+  console.log("postId", postId);
+
+  const postList = useSelector((state) => state.post.list);
+
+  // postList.filter((post) => post.id === postId);
+  console.log(postList);
+  const title = useSelector((state) => state.post.list.title);
+  const contents = useSelector((state) => state.post.list.contents);
+  // console.log("title", title);
+
+  const deletePost = () => {
+    // console.log(postId);
+    dispatch(postActions.deletePostMD(postId));
+  };
+
+  React.useEffect(() => {
+    dispatch(postActions.getPostMD(postId));
+  }, []);
+
   return (
     <React.Fragment>
+      <button
+        onClick={() => {
+          window.location.replace("/");
+        }}
+      >
+        뒤로가기
+      </button>
       <DetailBox>
-        <h1>React 10분만에 정복하는 법</h1>
+        <h1>{title}</h1>
         <Info>
           <div>
             <UserName>bombom</UserName>
@@ -17,12 +50,12 @@ const PostDetail = (props) => {
           </div>
           <div>
             <button>수정</button>
-            <button>삭제</button>
+            <button onClick={deletePost}>삭제</button>
           </div>
         </Info>
         <Content>
           <div>
-            <p>제목 어그로 죄송합니다. 저도 그 방법이 알고싶네요.</p>
+            <p>{contents}</p>
           </div>
           <Writer>
             <Image src={"/img/profile.png"} />
@@ -31,7 +64,6 @@ const PostDetail = (props) => {
         </Content>
         <Hr></Hr>
       </DetailBox>
-
       <CommentWrite />
       <CommentList />
     </React.Fragment>
@@ -44,7 +76,6 @@ const DetailBox = styled.div`
   min-width: 452px;
   width: 100%;
   margin: auto;
-
   h1 {
     text-align: left;
     font-size: 3rem;
@@ -57,7 +88,6 @@ const DetailBox = styled.div`
     word-break: keep-all;
   }
 `;
-
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
@@ -76,7 +106,6 @@ const Info = styled.div`
     }
   }
 `;
-
 const UserName = styled.span`
   font-size: 0.875rem;
   color: rgb(52, 58, 64);
@@ -87,16 +116,13 @@ const UserName = styled.span`
     text-decoration: underline;
   }
 `;
-
 const Separator = styled.span`
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 `;
-
 const Time = styled.span`
   font-size: 0.875rem;
 `;
-
 const Content = styled.div`
   div {
     display: flex;
@@ -111,18 +137,15 @@ const Content = styled.div`
     }
   }
 `;
-
 const Writer = styled.div`
   margin: 32px 0px;
   display: flex;
   align-items: center;
 `;
-
 const Image = styled.img`
   border-radius: 50%;
   margin-right: 1rem;
 `;
-
 const Hr = styled.div`
   background: rgb(233, 236, 239);
   width: 100%;
@@ -130,5 +153,4 @@ const Hr = styled.div`
   margin-top: 2rem;
   margin-bottom: 1.5rem;
 `;
-
-export default PostDetail;
+export default Detail;

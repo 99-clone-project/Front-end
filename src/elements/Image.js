@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-<<<<<<< HEAD
-// import defaultimage from "../asset/img/default-user-image.png";
-=======
-import defaultimage from "../../public/img/profile.png";
->>>>>>> 1504f8d21007f48abfd9274ba4d1b083b2418b0c
+// import defaultimage from "../../public/img/profile.png";
 
 const Image = (props) => {
   const { shape, src, size, width, height } = props;
