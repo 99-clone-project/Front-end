@@ -18,7 +18,7 @@ const CommentWrite = (props) => {
 
   return (
     <React.Fragment>
-      <Count>3개의 댓글</Count>
+      <Count>2개의 댓글</Count>
       <Container>
         <Input placeholder="댓글을 작성하세요" onChange={onChange} />
         <Button
