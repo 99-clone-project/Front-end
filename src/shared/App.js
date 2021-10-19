@@ -1,4 +1,5 @@
 import "./App.css";
+<<<<<<< HEAD
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +17,9 @@ import PostList from "../pages/PostList";
 import PostWrite from "../pages/PostWrite";
 import Detail from "../pages/Detail";
 import { Router } from "react-router";
+=======
+import PostDetail from "../pages/PostDetail";
+>>>>>>> 1504f8d21007f48abfd9274ba4d1b083b2418b0c
 
 function App() {
   // 1. cookie가 있는지 확인 => getcookie
@@ -34,6 +38,7 @@ function App() {
   }, [dispatch, user, userByCookie]);
 
   return (
+<<<<<<< HEAD
     <React.Fragment>
       <ConnectedRouter history={history}>
         <Header />
@@ -46,6 +51,11 @@ function App() {
         </Switch>
       </ConnectedRouter>
     </React.Fragment>
+=======
+    <div className="App">
+      <PostDetail></PostDetail>
+    </div>
+>>>>>>> 1504f8d21007f48abfd9274ba4d1b083b2418b0c
   );
 }
 

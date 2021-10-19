@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
@@ -18,10 +19,28 @@ const middlewares = [thunk.withExtraArgument({ history: history })];
 
 const env = process.env.NODE_ENV;
 
+=======
+import { createBrowserHistory } from "history";
+import thunk from "redux-thunk";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { connectRouter } from "connected-react-router";
+import Comment from "./modules/comment";
+
+export const history = createBrowserHistory();
+const rootReducer = combineReducers({
+  comment: Comment,
+
+  // 8. 리덕스에 history를 이제 넣어줄 것이다. 우리가 만든 history와 우리의 라우터가 연결이되는 것이다. 그리고 이것의 우리의 스토어에 저장이되는 것이다.
+  router: connectRouter(history),
+});
+const middlewares = [thunk.withExtraArgument({ history: history })];
+const env = process.env.NODE_ENV;
+>>>>>>> 1504f8d21007f48abfd9274ba4d1b083b2418b0c
 if (env === "development") {
   const { logger } = require("redux-logger");
   middlewares.push(logger);
 }
+<<<<<<< HEAD
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -32,4 +51,19 @@ const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
 let store = (initialStore) => createStore(rootReducer, enhancer);
 
+=======
+// 4. 리덕스 데브툴(redux devTools 설정)
+const composeEnhancers =
+  // 브라우저일 때만  window === "object"이 부분을 돌려주라고 넣어준것이다. __REDUX_DEVTOOLS_EXTENSION_COMPOSE__부분을 데브툴이 있으면 열어주려고 하는 것이다.
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
+// 5. 미들웨어 묶어주기
+// composeEnhancers를 사용해서 applyMiddleware로 지금까지 있었던 미들웨어를 사용한다는 말이다.
+const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+
+let store = (initialStore) => createStore(rootReducer, enhancer);
+>>>>>>> 1504f8d21007f48abfd9274ba4d1b083b2418b0c
 export default store();
