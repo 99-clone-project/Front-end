@@ -21,17 +21,17 @@ const PostWrite = () => {
 
   const addPost = () => {
     const contentHTML = contentRef.current.getInstance().getHTML();
-    console.log("contentHTML", contentHTML);
+    // console.log("contentHTML", contentHTML);
     const contentMarkdown = contentRef.current.getInstance().getMarkdown();
-    console.log("contentMarkdown", contentMarkdown);
-    console.log(contentMarkdown.replaceAll("#", ""));
+    // console.log("contentMarkdown", contentMarkdown);
+    // console.log(contentMarkdown.replaceAll("#", ""));
 
     const post = {
       title: title,
       contents: contentMarkdown.replaceAll("#", ""),
     };
-    console.log("post", post);
-    dispatch(postActions.addPostMiddleware(post));
+    // console.log("post", post);
+    dispatch(postActions.addPostMD(post));
   };
 
   return (

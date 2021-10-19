@@ -7,24 +7,22 @@ import profile from "../assets/profile.png";
 
 const Card = (props) => {
   const postList = useSelector((state) => state.post.list);
-  console.log("스테이트.포스트.리스트", postList);
-  // const { postList } = props;
-  // console.log(postList);
-  // console.log(props);
-  console.log(postList[0].title);
+  // console.log("스테이트.포스트.리스트", postList);
+  // console.log("postList", postList);
+  console.log("props", props);
   return (
     <>
       <CardWrap>
         <Head>
-          <CardImg src={postList[0].image} />
+          <CardImg src={postList[props.index].image} />{" "}
         </Head>
         <Body>
-          <Title>{postList[0].title}</Title>
-          <Description>{postList[0].content}</Description>
+          <Title>{postList[props.index].title}</Title>
+          <Description>{postList[props.index].contents}</Description>
         </Body>
         <Footer>
-          {/* <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8M_EHLRjkRkZuxWMmYM50R0at19m9iJegrh8FLEte4Es1Qtb1ibZqluQulkZQPr-2KWY&usqp=CAU" /> */}
-          <image />
+          {/* <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8M_EHLRjkRkZuxWMmYM50R0at19m9iJegrh8FLEte4Es1Qtb1ibZqluQulkZQPr-2KWY&usqp=CAU" />
+          <image /> */}
           by username
         </Footer>
       </CardWrap>
