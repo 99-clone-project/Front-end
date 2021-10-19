@@ -1,9 +1,10 @@
 import "./App.css";
+import PostDetail from "../pages/PostDetail";
 
 function App() {
   return (
     <div className="App">
-      <h1>리액트 팀 화이팅입니다❤👍</h1>
+      <PostDetail></PostDetail>
     </div>
   );
 }
