@@ -1,0 +1,42 @@
+{
+  "posts": [
+    {
+<<<<<<< HEAD
+      "title": "dsfsdf",
+      "contents": "sdfsdfsdf",
+      "id": 1
+    },
+    {
+      "title": "왜 안되는거지",
+      "contents": "왜 안되는거지",
+      "id": 3
+    },
+    {
+      "title": "sdfsdf",
+      "contents": "sdfsdfsdf",
+      "id": 4
+    },
+    {
+      "title": "진성님 헐",
+      "contents": "헐랭",
+      "id": 5
+    }
+  ]
+=======
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+>>>>>>> 1504f8d21007f48abfd9274ba4d1b083b2418b0c
+}
