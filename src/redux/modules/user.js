@@ -40,6 +40,7 @@ const loginMiddleware = (params) => {
         // console.log(res.data[1]);
         const { token } = res.data[1];
 
+        
         // 기존에 쿠키가 브라우저 있었으면, 다시 삭제하고 등록해주기!
         if (getCookie("user")) {
           deleteCookie("user");
