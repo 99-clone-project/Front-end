@@ -1,94 +1,95 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Text, Grid } from "./index";
+
+// 인풋 컴포넌트
+/**
+ * 
+ * @param {*} props 
+ * - label 인풋 박스 위에 넣어줄 텍스트 
+ * - placeholder 인풋 박스에 미리 넣어줄 텍스트
+ * - _onChange 인풋에 들어갈 값(text, file 등)이 변경되면 실행할 함수
+ * - type 인풋 박스의 타입 (file, text 등)
+ * - multiline 여러 줄(엔터 포함)을 보여줄 지 말지 여부 (input과 textarea로 분기할거예요.)
+ * - value 인풋 박스의 값
+ * - is_submit 엔터키 이벤트를 줄지 말지 여부 boolean
+ * - onSubmit 엔터키 이벤트에서 실행할 함수(onKeyPress 이벤트를 사용해요!)
+ * @returns 
+ */
 const Input = (props) => {
   const {
-    width,
-    padding,
-    bg,
-    height,
-    border,
-    size,
-    margin,
-    value,
+    label,
     placeholder,
     _onChange,
     type,
-    border_radius,
-    color,
-    bold,
-    placeholderColor,
-    required,
+    multiLine,
+    value,
+    is_submit,
+    onSubmit,
   } = props;
 
-  const styles = {
-    padding: padding,
-    width: width,
-    margin: margin,
-    height: height,
-    border: border,
-    size: size,
-    bg: bg,
-    border_radius,
-    color,
-    bold,
-    placeholderColor,
-  };
+  if (multiLine) {
+    return (
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        <ElTextarea
+          rows={10}
+          value={value}
+          placeholder={placeholder}
+          onChange={_onChange}
+        ></ElTextarea>
+      </Grid>
+    );
+  }
+
   return (
     <React.Fragment>
-      <InputBox
-        {...styles}
-        placeholder={placeholder}
-        type={type}
-        onChange={_onChange}
-        value={value}
-        required={required}
-      />
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        {is_submit ? (
+          <ElInput
+            type={type}
+            placeholder={placeholder}
+            onChange={_onChange}
+            value={value}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                onSubmit(e);
+              }
+            }}
+          />
+        ) : (
+          <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
+        )}
+      </Grid>
     </React.Fragment>
   );
 };
 
 Input.defaultProps = {
-  width: "100%",
-  padding: "",
-  height: "100%",
-  border: "",
-  size: "14px",
-  margin: "",
-  label: "",
-  value: "",
-  placeholder: "",
-  _onChange: () => {},
+  multiLine: false,
+  label: false,
+  placeholder: "텍스트를 입력해주세요.",
   type: "text",
-  name: "",
-  bg: null,
-  border_radius: "",
-  color: "",
-  multiline_noValue: "",
-  bold: false,
-  placeholderColor: "",
-  required: false,
+  value: "",
+  is_submit: false,
+  onSubmit: () => {},
+  _onChange: () => {},
 };
 
-const InputBox = styled.input`
-  border: none;
-  ${(props) => props.bold && `font-weight : 600;`}
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  padding: ${(props) => props.padding};
-  border: ${(props) => props.border};
-  font-size: ${(props) => props.size};
-  margin: ${(props) => props.margin};
-  background-color: ${(props) => props.bg};
-  border-radius: ${(props) => props.border_radius};
-  border: none;
-  color: ${(props) => props.color};
-  :focus {
-    outline: none;
-  }
-  ::placeholder {
-    color: ${(props) => props.placeholderColor};
-  }
+const ElTextarea = styled.textarea`
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
+`;
+
+const ElInput = styled.input`
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
 `;
 
 export default Input;
