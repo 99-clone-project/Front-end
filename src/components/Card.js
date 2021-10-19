@@ -4,15 +4,23 @@ import styled from "styled-components";
 // import Grid from "../elements/Grid";
 import profile from "../assets/profile.png";
 // import PostList from "../pages/PostList";
+import { history } from "../redux/configureStore";
 
 const Card = (props) => {
   const postList = useSelector((state) => state.post.list);
   // console.log("스테이트.포스트.리스트", postList);
   // console.log("postList", postList);
-  console.log("props", props);
+  // console.log("props", props);
+  const postId = props.post.id;
+  console.log(postId);
+
   return (
     <>
-      <CardWrap>
+      <CardWrap
+        onClick={() => {
+          history.push(`/detail/${postId}`);
+        }}
+      >
         <Head>
           <CardImg src={postList[props.index].image} />{" "}
         </Head>
@@ -35,14 +43,12 @@ const CardWrap = styled.div`
   cursor: pointer;
   /* margin: 50px; */
   box-shadow: 3px 3px 15px 1px #e5e5e5;
-
   &:hover {
     box-shadow: 3px 3px 15px 1px #9e9e9e;
     transition: 0.3s;
     /* margin-top: 1px; */
   }
 `;
-
 const Head = styled.div`
   width: 320px;
   height: 167.01px;
@@ -65,9 +71,7 @@ const Body = styled.div`
 
   text-align: left;
 `;
-
 const Title = styled.h4``;
-
 const Description = styled.p``;
 const Footer = styled.div`
   width: 288px;
@@ -76,7 +80,6 @@ const Footer = styled.div`
   background-color: blue;
   border-top: 1px solid #e5e5e5;
 `;
-
 const Image = styled.image`
   width: 23.99px;
   height: 23.99px;

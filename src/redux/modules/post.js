@@ -9,7 +9,6 @@ const ADD_POST = "ADD_POST";
 const GET_POST = "GET_POST";
 
 // action creators
-// 포스트를 넘겨준다 ?
 // post 를 받아서 post로 보낸다.
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const getPost = createAction(GET_POST, (postList) => ({ postList }));
@@ -39,16 +38,25 @@ const addPostMD = (post) => {
   };
 };
 
-const getPostMD = () => {
+const getPostMD = (postId, post) => {
   return function (dispatch, getState, { history }) {
     // console.log(postList);
     apis
       .getPostAX()
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         const postList = res.data;
+        if (postId) {
+          const post = postList.filter((post) => post.id === postId)[0];
+          console.log("포스트아이디가 있을때 포스트", post);
+          const title = post.title;
+          const contents = post.contetns;
+          dispatch(getPost(post, title, contents));
+        } else {
+          console.log(res);
+          dispatch(getPost(postList));
+        }
         // console.log("postList", postList);
-        dispatch(getPost(postList));
         // console.log("getPost 동작했다");
       })
       .catch((err) => {

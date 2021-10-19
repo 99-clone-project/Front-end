@@ -5,6 +5,7 @@ import { history } from "../redux/configureStore";
 
 import PostList from "../pages/PostList";
 import PostWrite from "../pages/PostWrite";
+import Detail from "../pages/Detail";
 import { Router } from "react-router";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" exact component={PostList} />
         {/* 이거 /posts로 바꿔야하는건가요? */}
         <Route path="/postwrite" exact component={PostWrite} />
+        <Route path="/detail/:postId" exact component={Detail} />
       </ConnectedRouter>
     </div>
   );

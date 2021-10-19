@@ -9,16 +9,14 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 const PostList = () => {
   const dispatch = useDispatch();
-
   const postList = useSelector((state) => state.post.list);
   // console.log("스테이트.포스트.리스트", postList);
-  console.log(postList);
-  const postId = useSelector((state) => state.post.list.id);
-  console.log(postId);
+  // console.log(postList);
 
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);
+
   return (
     <>
       HEADER
@@ -31,17 +29,7 @@ const PostList = () => {
       </button>
       <Grid>
         {postList.map((post, index) => {
-          return (
-            <Card
-              id={post.id}
-              post={post}
-              index={index}
-              key={index}
-              onClick={() => {
-                // history.push(`/detail/${postId}`);
-              }}
-            />
-          );
+          return <Card post={post} index={index} key={index} />;
         })}
       </Grid>
     </>
