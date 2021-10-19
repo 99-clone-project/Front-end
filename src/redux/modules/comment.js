@@ -2,9 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 
-//axios
-import { apis } from "../lib/axios";
-
 // actions Type
 const ADD_COMMENT = "ADD_COMMENT";
 const REMOVE_COMMENT = "REMOVE_COMMENT";
