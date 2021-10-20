@@ -1,4 +1,4 @@
-# 17log(vlog clone coding) 프론트엔드
+# 17log(velog clone coding) 프론트엔드
 
 ![image](썸네일주소)
 
