@@ -20,8 +20,8 @@ const editComment = createAction(EDIT_COMMENT, (commentId, comment) => ({
   commentId,
   comment,
 }));
-const getComment = createAction(GET_COMMENT, (comment_list) => ({
-  comment_list,
+const getComment = createAction(GET_COMMENT, (commentList) => ({
+  commentList,
 }));
 
 //initialState
@@ -30,11 +30,19 @@ const initialState = {
 };
 
 //middleware
+
 const getCommentDB = (postId) => {
   return function (dispatch, getState, { history }) {
-    apis.get(`/api/comments/${postId}`).then((res) => {
-      dispatch(getComment(res.data));
-    });
+    apis
+      .getComment(postId)
+      .then((res) => {
+        dispatch(getComment(res.data));
+        console.log("응답", res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("댓글을 불러오는데 실패하였습니다.");
+      });
   };
 };
 
@@ -43,6 +51,7 @@ const addCommentDB = (comment) => {
     apis
       .addComment(comment)
       .then((res) => {
+        dispatch(getCommentDB(comment.postId));
         console.log(res.data);
         // dispatch(addComment(res.data));
       })
@@ -108,7 +117,7 @@ export default handleActions(
     //   }),
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.commentList = action.payload.comments;
+        draft.commentList = action.payload.commentList;
       }),
   },
   initialState

@@ -6,27 +6,30 @@ import CommentList from "./CommentList";
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
-  const postId = useSelector((state) => state.post);
+
+  const url = useSelector((state) => state.router);
+  const postId = url.location.pathname.slice(8);
   const [content, setContent] = React.useState("");
-  console.log(postId);
+
   const onChange = (e) => {
     setContent(e.target.value);
   };
   console.log(content);
-
-  // if (content === "") {
-  //   window.alert("내용을 입력해주세요.");
-  // }
-  // if (user === null) {
-  //   history.push("/");
-  // }
 
   const setAddComment = () => {
     const comment = {
       postId: postId,
       content: content,
     };
+
+    if (content === "") {
+      window.alert("내용을 입력해주세요.");
+    }
+    // if (user === null) {
+    //   history.push("/");
+    // }
     dispatch(commentAction.addCommentDB(comment));
+    dispatch(commentAction.getCommentDB(postId));
   };
 
   return (
