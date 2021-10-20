@@ -15,6 +15,8 @@ const PostWrite = () => {
   const contentRef = useRef();
   const [title, setTitle] = useState("");
 
+  console.log(localStorage.getItem("nickname"));
+
   const titleChange = (e) => {
     setTitle(e.target.value);
   };

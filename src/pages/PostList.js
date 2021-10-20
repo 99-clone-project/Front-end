@@ -41,8 +41,8 @@ const Grid = styled.div`
   margin: auto;
   display: grid;
   grid-template-columns: 320px 320px 320px;
-  grid-template-rows: 350.069px 350.069 350.069;
-  gap: 20px;
+  /* grid-template-rows: 331.08px 331.08px 331.08px; */
+  gap: 30px;
 `;
 
 export default PostList;
