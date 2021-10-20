@@ -41,7 +41,7 @@ const Header = (props) => {
 
   if (user) {
     return (
-      <Grid is_flex height="4rem" width="82%">
+      <Grid is_flex height="4rem" width="90%">
         <FontBox
           onClick={() => {
             history.push("/");
@@ -63,7 +63,7 @@ const Header = (props) => {
     );
   }
   return (
-    <Grid is_flex height="4rem" width="82%">
+    <Grid is_flex height="4rem" width="90%">
       <FontBox
         onClick={() => {
           history.push("/");

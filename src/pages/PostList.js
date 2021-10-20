@@ -29,12 +29,14 @@ const PostList = () => {
 
 const Grid = styled.div`
   box-sizing: border-box;
-  width: 90%;
-  display: grid;
-  grid-template-columns: 320px 320px 320px;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  /* display: grid; */
+  /* grid-template-columns: 320px 320px 320px 320px; */
   margin: auto;
   /* grid-template-rows: 331.08px 331.08px 331.08px; */
-  gap: 30px;
+  gap: 0.1rem;
   justify-content: center;
 `;
 

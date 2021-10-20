@@ -36,10 +36,7 @@ const Card = (props) => {
           history.push(`/detail/${postId}`);
         }}
       >
-        <Head>
-          {/* <CardImg src={postList[props.index].image} /> */}
-          <CardImg src="https://media.vlpt.us/images/moseoh/post/02d1cb92-64f8-437d-8932-472a15d85e01/velog_logo.png" />
-        </Head>
+        <CardImg src="https://media.vlpt.us/images/moseoh/post/02d1cb92-64f8-437d-8932-472a15d85e01/velog_logo.png" />
         <Body>
           <Title>{postList[props.index].title}</Title>
           <Description>{postList[props.index].content}</Description>
@@ -78,8 +75,20 @@ const Card = (props) => {
 };
 
 const CardWrap = styled.div`
-  width: 320px;
-  cursor: pointer;
+  width: 20rem;
+  background: white;
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+    transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+    margin: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+
+
+
+  /* cursor: pointer; */
   /* margin: 50px; */
   /* box-shadow: 3px 3px 15px 1px #e5e5e5; */
   /* &:hover {
@@ -89,25 +98,22 @@ const CardWrap = styled.div`
   /* } */
   /* width: 340px; */
   /* height: 380px; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: flex;
   transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   box-shadow: 3px 3px 15px 1px #e5e5e5;
   margin-right: 20px;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: white;
   :hover {
     cursor: pointer;
-    transform: translateY(-8px);
+    transform: translateY(-8px); */
     /* box-shadow: 0 3px 40px 0 #ddd; */
-    box-shadow: 3px 3px 15px 1px #9e9e9e;
+    /* box-shadow: 3px 3px 15px 1px #9e9e9e; */
   }
 `;
-const Head = styled.div`
-  width: 320px;
-  height: 167.01px;
-`;
+
 const CardImg = styled.img`
   width: 100%;
   background-size: cover;
