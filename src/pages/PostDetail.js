@@ -1,3 +1,5 @@
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import { Viewer } from "@toast-ui/react-editor";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -5,57 +7,83 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import CommentWrite from "../components/CommentWrite";
+import { apis } from "../utils/apis";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
-  console.log("props.match", props);
-
-  const postList = useSelector((state) => state.post.list);
-  console.log(postList);
   const currentpostId = props.match.params.postId;
-  console.log("currentpostId", currentpostId);
-  // const post_idx = postList.findIndex((post) => post.postId === currentpostId);
-  // console.log(post_idx);
-  const post = postList.filter(
-    (post) => post.postId === Number(currentpostId)
-  )[0];
-  console.log(post);
-  const title = post.title;
-  const content = post.content;
-  console.log(title, content);
-
-  const deletePost = () => {
-    console.log(currentpostId);
-    dispatch(postActions.deletePostMD(currentpostId));
-  };
+  // console.log("currentpostId", currentpostId);
 
   React.useEffect(() => {
+    // async function fetchData() {
+    //   const res = await apis.getPostDetailAX(currentpostId);
+    //   setPost(res.data.post);
+    //   console.log(res.data);
+    // }
+    // fetchData();
     // dispatch(postActions.getPostMD(currentpostId));
   }, []);
 
+  const postList = useSelector((state) => state.post.list);
+  // console.log(useSelector((state) => state));
+  // console.log(postList);
+
+  const post = postList.filter(
+    (post) => post.postId === Number(currentpostId)
+  )[0];
+  console.log("post", post);
+  // const post_idx = postList.findIndex(
+  //   (post) => post.postId === Number(currentpostId)
+  // );
+  // console.log(post_idx);
+
+  const title = post.title;
+  const content = post.content;
+  // console.log(title, content);
+  const rawUserId = post.user.email;
+  const userId = rawUserId.split("@")[0];
+  const nickname = post.user.nickname;
+  const rawLoginUser = localStorage.getItem("nickname");
+  const loginUser = rawLoginUser.split('"')[1];
+
+  const modDate = post.regDate.split("T")[0];
+  const yearMonthDay = modDate.split("-", 3);
+  const year = yearMonthDay[0];
+  const month = yearMonthDay[1];
+  const day = yearMonthDay[2];
+  const writtenDate = year + "년 " + month + "월 " + day + "일";
+  // let [post, setPost] = React.useState("");
+
+  // const sameUser = nickname === loginUser ? true : false;
+  const deletePost = () => {
+    dispatch(postActions.deletePostMD(currentpostId));
+  };
+
   return (
     <React.Fragment>
-      
       <DetailBox>
         <h1>{title}</h1>
         <Info>
           <div>
-            <UserName>bombom</UserName>
+            <UserName>{userId}</UserName>
             <Separator>·</Separator>
-            <Time>1시간 전</Time>
+            <Time>{writtenDate}</Time>
           </div>
-          <div>
-            <button>수정</button>
-            <button onClick={deletePost}>삭제</button>
-          </div>
+          {nickname == loginUser ? (
+            <div>
+              <button>수정</button>
+              <button onClick={deletePost}>삭제</button>
+            </div>
+          ) : null}
         </Info>
         <Content>
           <div>
-            <p>{content}</p>
+            <Viewer initialValue={content} height="1000px" />
+            {/* <div dangerouslySetInnerHTML={{ __html: content }}></div> */}
           </div>
           <Writer>
             <Image src={"/img/profile.png"} />
-            <div>봄봄</div>
+            <div>{nickname}</div>
           </Writer>
         </Content>
         <Hr></Hr>
@@ -119,7 +147,7 @@ const Time = styled.span`
   font-size: 0.875rem;
 `;
 const Content = styled.div`
-  div {
+  /* div {
     display: flex;
     font-size: 1.5rem;
     line-height: 1.5;
@@ -130,7 +158,7 @@ const Content = styled.div`
       color: rgb(34, 36, 38);
       font-weight: 400;
     }
-  }
+  } */
 `;
 const Writer = styled.div`
   margin: 32px 0px;

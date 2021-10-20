@@ -11,6 +11,8 @@ const Card = (props) => {
   // console.log("스테이트.포스트.리스트", postList);
   // console.log("postList", postList);
   // console.log("props", props);
+  // console.log(props.postList);
+
   const modDate = postList[props.index].regDate.split("T")[0];
   const yearMonthDay = modDate.split("-", 3);
   const year = yearMonthDay[0];
@@ -23,6 +25,10 @@ const Card = (props) => {
   // console.log(postId);
   // const postUser = props.post.user.nickname;
   // console.log(postList[props.index]);
+  // console.log(postList[props.index].content);
+  function regExp() {
+    let str = postList[props.index].content;
+  }
   return (
     <>
       <CardWrap
@@ -40,9 +46,24 @@ const Card = (props) => {
           <Date>{writtenDate}</Date>
         </Body>
         <Footer>
-          <div>
-            <img src={"/img/profile.png"} />
-            {/* by {postList[props.index].user.nickname} */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignContent: "center",
+            }}
+          >
+            <img
+              src={"/img/profile.png"}
+              style={{
+                width: "23.99px",
+                height: "23.99px",
+                margin: "0 8px 0 0",
+                backgroundSize: "cover",
+                borderRadius: "50%",
+              }}
+            />
             <Span>by</Span>{" "}
             <UserName>{postList[props.index].user.nickname}</UserName>
           </div>
@@ -145,13 +166,13 @@ const Footer = styled.div`
   /* margin: 20px 20px 20px 20px; */
   cursor: pointer;
   border-top: 1px solid rgb(248, 249, 250);
-  background-color: pink;
 `;
 const Image = styled.image`
   width: 23.99px;
   height: 23.99px;
   margin: 0 8px 0 0;
-  background-color: white;
+  /* background-color: white; */
+  background-size: cover;
   border-radius: 50%;
 `;
 
