@@ -8,12 +8,14 @@ import { history } from "../redux/configureStore";
 
 const Card = (props) => {
   const postList = useSelector((state) => state.post.list);
-  // console.log("스테이트.포스트.리스트", postList);
+  console.log("스테이트.포스트.리스트", postList);
   // console.log("postList", postList);
-  // console.log("props", props);
-  const postId = props.post.id;
-  console.log(postId);
+  console.log("props", props);
 
+  const postId = props.post.postId;
+  // console.log(postId);
+  // const postUser = props.post.user.nickname;
+  console.log(postList[props.index]);
   return (
     <>
       <CardWrap
@@ -22,16 +24,17 @@ const Card = (props) => {
         }}
       >
         <Head>
-          <CardImg src={postList[props.index].image} />{" "}
+          <CardImg src={postList[props.index].image} />
         </Head>
         <Body>
           <Title>{postList[props.index].title}</Title>
-          <Description>{postList[props.index].contents}</Description>
+          <Description>{postList[props.index].content}</Description>
         </Body>
         <Footer>
           {/* <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8M_EHLRjkRkZuxWMmYM50R0at19m9iJegrh8FLEte4Es1Qtb1ibZqluQulkZQPr-2KWY&usqp=CAU" />
           <image /> */}
-          by username
+          {/* by {postList[props.index].user.nickname} */}
+          by {postList[props.index].user.nickname}
         </Footer>
       </CardWrap>
     </>
@@ -39,14 +42,29 @@ const Card = (props) => {
 };
 
 const CardWrap = styled.div`
-  width: 320px;
-  cursor: pointer;
+  /* width: 320px;
+  cursor: pointer; */
   /* margin: 50px; */
-  box-shadow: 3px 3px 15px 1px #e5e5e5;
+  /* box-shadow: 3px 3px 15px 1px #e5e5e5;
   &:hover {
     box-shadow: 3px 3px 15px 1px #9e9e9e;
-    transition: 0.3s;
-    /* margin-top: 1px; */
+    transition: 0.3s; */
+  /* margin-top: 1px; */
+  /* } */
+  width: 340px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex;
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  margin: 50px auto 20px auto;
+  margin-right: 20px;
+  border-radius: 10px;
+  background-color: white;
+  :hover {
+    cursor: pointer;
+    transform: translateY(-12px);
+    box-shadow: 0 3px 40px 0 #ddd;
   }
 `;
 const Head = styled.div`
@@ -62,23 +80,17 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
-  width: 288px;
-  height: 132.062px;
-  padding: 16px;
-
-  background-color: red;
-
-  text-align: left;
+  align-items: flex-start;
+  margin: 20px;
 `;
 const Title = styled.h4``;
 const Description = styled.p``;
 const Footer = styled.div`
-  width: 288px;
-  height: 23.993px;
-  padding: 10px 16px;
-  background-color: blue;
-  border-top: 1px solid #e5e5e5;
+  height: 35px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 20px 20px 20px;
 `;
 const Image = styled.image`
   width: 23.99px;

@@ -1,5 +1,5 @@
 import { React, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import post, { actionCreators as postActions } from "../redux/modules/post";
@@ -18,7 +18,7 @@ const PostWrite = () => {
   const titleChange = (e) => {
     setTitle(e.target.value);
   };
-
+  console.log(useSelector((state) => state));
   const addPost = () => {
     const contentHTML = contentRef.current.getInstance().getHTML();
     // console.log("contentHTML", contentHTML);
@@ -28,7 +28,10 @@ const PostWrite = () => {
 
     const post = {
       title: title,
-      contents: contentMarkdown.replaceAll("#", ""),
+      content: contentMarkdown.replaceAll("#", ""),
+      user: {
+        // nickname: nickname,
+      },
     };
     // console.log("post", post);
     dispatch(postActions.addPostMD(post));
