@@ -1,10 +1,14 @@
-
-@font-face{
-  font-family: "source";
-  src: url("../styles/fonts/SourceCodePro-Regular.ttf");
+@font-face {
+  font-family: "firaMono-Regluar";
+  src: url("../fonts/FiraMono-Regular.ttf")
 }
 
-@font-face{
-  font-family: "source2";
-  src: url("../styles/fonts/SourceCodePro-Regular.eot#iefix")
+@font-face {
+  font-family: "firaMono-Bold";
+  src: url("../fonts/FiraMono-Bold.ttf")
+}
+
+@font-face {
+  font-family: "firaMono-Medium";
+  src: url("../fonts/FiraMono-Medium.ttf")
 }

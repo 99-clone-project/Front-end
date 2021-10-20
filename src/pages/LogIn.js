@@ -18,9 +18,17 @@ const Login = (props) => {
       email: email,
       pw: pw
     }
-
+    if (!mailRegCheck(email) || !email) {
+      alert("이메일 형식을 다시 확인해주세요!");
+      return;
+    }
+    if (!pw || pw.length < 4) {
+      alert("비밀번호 입력란을 다시 확인해주세요! 비밀번호는 4자리 이상입니다");
+      return;
+    }
     dispatch(userActions.loginMiddleware(user))
   }
+  
 
   return(
     <Grid>

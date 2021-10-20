@@ -23,6 +23,7 @@ const signupMiddleware = (user) => {
       .signUp(user)
       .then((res) => {
         // console.log(res.data);
+        window.location.href = "/login";
       })
       .catch((error) => {
         const errorResposnse = error.response;
@@ -37,7 +38,7 @@ const loginMiddleware = (params) => {
     apis
       .login(params)
       .then((res) => {
-
+        console.log(res)
        // console.log(res.data[0]);
         const username = res.data[0]
        // console.log(Object.values(username))
@@ -57,6 +58,7 @@ const loginMiddleware = (params) => {
         // 쿠키 등록이 끝나면 redux user에 세팅해주기!
         dispatch(setUser(token));
         window.alert("로그인 성공!");
+        window.location.href = "/";
       })
       .catch((error) => {
         window.alert("로그인에 실패!");

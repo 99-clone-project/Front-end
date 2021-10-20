@@ -4,15 +4,13 @@ import styled from "styled-components";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
-import CommentList from "../components/CommentList";
 import CommentWrite from "../components/CommentWrite";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
-  console.log("props.match", props.match);
+  console.log("props.match", props);
 
   const postList = useSelector((state) => state.post.list);
-  console.log(useSelector((state) => state.post.list));
   console.log(postList);
   const currentpostId = props.match.params.postId;
   console.log("currentpostId", currentpostId);
@@ -37,13 +35,7 @@ const Detail = (props) => {
 
   return (
     <React.Fragment>
-      <button
-        onClick={() => {
-          window.location.replace("/");
-        }}
-      >
-        뒤로가기
-      </button>
+      
       <DetailBox>
         <h1>{title}</h1>
         <Info>
@@ -69,7 +61,6 @@ const Detail = (props) => {
         <Hr></Hr>
       </DetailBox>
       <CommentWrite />
-      <CommentList />
     </React.Fragment>
   );
 };
@@ -131,7 +122,7 @@ const Content = styled.div`
   div {
     display: flex;
     font-size: 1.5rem;
-    ine-height: 1.5;
+    line-height: 1.5;
     font-weight: bold;
     color: rgb(33, 37, 41);
     p {

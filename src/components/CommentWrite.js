@@ -2,34 +2,52 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
+import CommentList from "./CommentList";
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
-  const [comment_text, setCommentText] = React.useState();
 
+  console.log(props)
+  
+
+  const postId = useSelector((state) => state.post.list);
+  const [content, setContent] = React.useState("");
+  console.log(postId);
   const onChange = (e) => {
-    setCommentText(e.target.value);
+    setContent(e.target.value);
   };
-  console.log(comment_text);
+  console.log(content);
 
-  const onClick = () => {
-    
-    dispatch(commentAction.addCommentDB(comment_text));
+  // if (content === "") {
+  //   window.alert("내용을 입력해주세요.");
+  // }
+  // if (user === null) {
+  //   history.push("/");
+  // }
+
+  const setAddComment = () => {
+    const comment = {
+      postId: postId,
+      content: content,
+    };
+    dispatch(commentAction.addCommentDB(comment));
+
   };
 
   return (
     <React.Fragment>
-      <Count>3개의 댓글</Count>
+      <Count>2개의 댓글</Count>
       <Container>
         <Input placeholder="댓글을 작성하세요" onChange={onChange} />
         <Button
           onClick={() => {
-            onClick();
+            setAddComment();
           }}
         >
           댓글 작성
         </Button>
       </Container>
+      <CommentList />
     </React.Fragment>
   );
 };

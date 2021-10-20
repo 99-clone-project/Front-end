@@ -6,14 +6,24 @@ import { Link } from "react-router-dom";
 import "../shared/App.css";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as postActions } from "../redux/modules/post";
+
+import Card from "../components/Card"
+import { fontFamily } from "@mui/system";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  console.log(user);
+  // console.log(user);
+
+  React.useEffect(() => {
+    dispatch(postActions.getPostMD());
+  }, []);
+
+  const postList = useSelector((state) => state.post.list);
+  // console.log(postList);
 
   const tologin = () => {
-    console.log("history", history);
     history.push("/login");
   };
   const toSignup = () => {
@@ -32,17 +42,29 @@ const Header = (props) => {
   if (user) {
     return (
       <Grid is_flex>
-        <Font>velog</Font>
+        <FontBox
+        onClick={()=>{
+          history.push("/")
+        }}>
+         <Font>velog</Font>
+        </FontBox>
         <div>
+          <Btn onClick={() => {
+            history.push("postwrite")
+          }}>작성하기</Btn>
           <Btn onClick={toLogOut}>로그아웃</Btn>
-          <Btn>내정보</Btn>
         </div>
       </Grid>
     );
   }
   return (
     <Grid is_flex>
-      <Text>velog</Text>
+      <FontBox
+        onClick={()=>{
+          history.push("/")
+        }}>
+         <Font>velog</Font>
+        </FontBox>
       <div>
         <Btn onClick={tologin}>로그인</Btn>
         <Btn onClick={toSignup}>회원가입</Btn>
@@ -50,10 +72,26 @@ const Header = (props) => {
     </Grid>
   );
 };
-const Font = styled.text``;
+
+const FontBox = styled.div`
+  padding: 10px;
+  margin-left: 15px;
+  cursor: pointer;
+`;
+
+const Font = styled.text`
+ // padding: 10px;
+ // background-color: orange;
+  font-size: 20px;
+  font-family: "firaMono-Medium";
+  color: rgb(52, 58, 64);
+ // display: inline-block;
+ // margin-left: 15px;
+`;
 
 const Btn = styled.button`
-  margin: 0px 10px 0px 0px;
+  cursor: pointer;
+  margin: 15px 10px 15px 0px;
   font-size: 14px;
   background-color: #343a40;
   color: white;
@@ -61,6 +99,10 @@ const Btn = styled.button`
   font-weight: bold;
   border-radius: 25px;
   border: none;
+  &:hover {
+    background-color: #868e96;
+    transition: .125s;
+  }
 `;
 
 export default Header;

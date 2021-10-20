@@ -19,14 +19,7 @@ const PostList = () => {
 
   return (
     <>
-      HEADER
-      <button
-        onClick={() => {
-          history.push("/postwrite");
-        }}
-      >
-        작성하기
-      </button>
+      
       <Grid>
         {postList.map((post, index) => {
           return <Card post={post} index={index} key={index} />;

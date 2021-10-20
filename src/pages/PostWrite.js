@@ -31,9 +31,6 @@ const PostWrite = () => {
     const post = {
       title: title,
       content: contentMarkdown.replaceAll("#", ""),
-      user: {
-        // nickname: nickname,
-      },
     };
     // console.log("post", post);
     dispatch(postActions.addPostMD(post));

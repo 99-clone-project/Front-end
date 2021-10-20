@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
 import { mailRegCheck } from "../utils/validation"
 
+
 const SignUp = (props) => {
   // 액션을 실행해줄 dispatch 훅을 선언한다.
   const dispatch = useDispatch()
@@ -22,9 +23,30 @@ const SignUp = (props) => {
       pwcheck: pwcheck,
       nickname: nickname
     }
+    // 아이디와 패스워드, 유저 닉네임이 있는 지 확인!
+    // 미들웨어에서 처리해도 괜찮지만, 딱봐도 어림없는 값(공백 등등)이 굳이 미들웨어까지 갈 필요 없으니 여기에서 막아줄거예요.
+    if (email === "" || pw === "" || pwcheck === "" || nickname === "") {
+      window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
+      return;
+    }
+
+    // id가 이메일 형식이 맞나 확인!
+    if (!mailRegCheck(email)) {
+      window.alert("이메일 형식이 맞지 않습니다!");
+      return;
+    }
+
+    // 비밀번호와 비밀번호 확인 부분이 일치하나 확인!
+    if (pw !== pwcheck) {
+      window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
+      return;
+    }
+    
     dispatch(userActions.signupMiddleware(user))
 
   }
+
+  
 
   return(
     <Grid>
