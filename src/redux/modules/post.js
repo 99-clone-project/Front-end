@@ -12,7 +12,9 @@ const DELETE_POST = "DELETE_POST";
 // post 를 받아서 post로 보낸다.
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const getPost = createAction(GET_POST, (postList) => ({ postList }));
-const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
+const deletePost = createAction(DELETE_POST, (currentpostId) => ({
+  currentpostId,
+}));
 
 // initialState
 const initialState = {
@@ -69,14 +71,15 @@ const getPostMD = (postId, post) => {
   };
 };
 
-const deletePostMD = (postId) => {
+const deletePostMD = (currentpostId) => {
   return function (dispatch, getState, { history }) {
     apis
-      .deletePostAX(postId)
+      .deletePostAX(currentpostId)
       .then((res) => {
-        console.log(res);
-        dispatch(deletePost(postId));
         history.push("/");
+        window.alert("대박 잘지워짐");
+        console.log(res);
+        dispatch(deletePost(currentpostId));
       })
       .catch((err) => console.log(err));
   };

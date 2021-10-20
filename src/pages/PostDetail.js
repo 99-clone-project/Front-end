@@ -11,24 +11,25 @@ const Detail = (props) => {
   const dispatch = useDispatch();
   console.log("props.match", props.match);
 
-  // const currentpostId = props.match.params.postId;
-  // console.log("postId", currentpostId);
-
-  // const postList = useSelector((state) => state.post.list);
-  // console.log(postList);
+  const postList = useSelector((state) => state.post.list);
+  console.log(useSelector((state) => state.post.list));
+  console.log(postList);
+  const currentpostId = props.match.params.postId;
+  console.log("currentpostId", currentpostId);
   // const post_idx = postList.findIndex((post) => post.postId === currentpostId);
   // console.log(post_idx);
-  // const post = postList.filter((post) => post.postId === currentpostId);
-  // console.log(post);
-  // const title = postList.title;
-  // const content = postList.content;
-  // console.log(title, content);
-  // console.log("title", title);
+  const post = postList.filter(
+    (post) => post.postId === Number(currentpostId)
+  )[0];
+  console.log(post);
+  const title = post.title;
+  const content = post.content;
+  console.log(title, content);
 
-  // const deletePost = () => {
-  //   // console.log(postId);
-  //   dispatch(postActions.deletePostMD(postId));
-  // };
+  const deletePost = () => {
+    console.log(currentpostId);
+    dispatch(postActions.deletePostMD(currentpostId));
+  };
 
   React.useEffect(() => {
     // dispatch(postActions.getPostMD(currentpostId));
@@ -44,7 +45,7 @@ const Detail = (props) => {
         뒤로가기
       </button>
       <DetailBox>
-        {/* <h1>{title}</h1> */}
+        <h1>{title}</h1>
         <Info>
           <div>
             <UserName>bombom</UserName>
@@ -53,11 +54,13 @@ const Detail = (props) => {
           </div>
           <div>
             <button>수정</button>
-            {/* <button onClick={deletePost}>삭제</button> */}
+            <button onClick={deletePost}>삭제</button>
           </div>
         </Info>
         <Content>
-          <div>{/* <p>{content}</p> */}</div>
+          <div>
+            <p>{content}</p>
+          </div>
           <Writer>
             <Image src={"/img/profile.png"} />
             <div>봄봄</div>
