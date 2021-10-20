@@ -1,10 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-// import axios from "axios";
+import axios from "axios";
 import { apis } from "../../utils/apis";
 
 // actions type
-
 const ADD_POST = "ADD_POST";
 const GET_POST = "GET_POST";
 const DELETE_POST = "DELETE_POST";
@@ -48,13 +47,15 @@ const getPostMD = (postId, post) => {
       .then((res) => {
         console.log(res);
         const postList = res.data;
+        console.log(postList);
         if (postId) {
-          const post = postList.filter((post) => post.id === Number(postId))[0];
+          const post = postList.filter((post) => postId === postId[0]);
+          console.log(postId);
           console.log("포스트아이디가 있을때 포스트", post);
           const title = post.title;
           console.log(title);
-          const contents = post.contents;
-          dispatch(getPost(post, title, contents));
+          const content = post.content;
+          dispatch(getPost(post, title, content));
         } else {
           console.log(res);
           dispatch(getPost(postList));
