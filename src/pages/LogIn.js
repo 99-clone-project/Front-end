@@ -4,6 +4,7 @@ import { Grid, Text, Input } from "../elements"
 import { useDispatch } from "react-redux"
 import { actionCreators as userActions} from "../redux/modules/user"
 import { mailRegCheck } from "../utils/validation"
+import { useSelector } from "react-redux"
 
 
 const Login = (props) => {

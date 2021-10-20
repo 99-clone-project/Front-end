@@ -37,14 +37,19 @@ const loginMiddleware = (params) => {
     apis
       .login(params)
       .then((res) => {
-        // console.log(res.data[1]);
-        const { token } = res.data[1];
-
+       // console.log(res.data[0]);
+        const username = res.data[0]
+       // console.log(Object.values(username))
+        const map = new Map(Object.entries(username));
+       // console.log(map.get('nickname'))
+       // const localStorage = {nickname: username};
+        window.localStorage.setItem("nickname", JSON.stringify(map.get('nickname')))
         
+        const { token } = res.data[1];
         // 기존에 쿠키가 브라우저 있었으면, 다시 삭제하고 등록해주기!
         if (getCookie("user")) {
           deleteCookie("user");
-         // console.log("user 있음", document.cookie);
+        // console.log("user 있음", document.cookie);
         }
         setCookie("user", token);
         // 쿠키 등록이 끝나면 redux user에 세팅해주기!
@@ -83,13 +88,14 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         const decoded = jwt_decode(action.payload.token);
-        console.log(decoded);
+        // console.log(decoded);
         draft.user = decoded;
         draft.isLogIn = true;
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("user");
+        localStorage.clear()
         draft.user = null;
         draft.isLoggedIn = false;
       }),

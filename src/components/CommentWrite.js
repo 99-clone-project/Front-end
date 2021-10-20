@@ -13,6 +13,7 @@ const CommentWrite = (props) => {
   console.log(comment_text);
 
   const onClick = () => {
+    
     dispatch(commentAction.addCommentDB(comment_text));
   };
 
