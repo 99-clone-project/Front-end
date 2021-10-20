@@ -1,16 +1,16 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../utils/apis";
-import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
 import { setCookie, deleteCookie, getCookie } from "../../utils/cookie";
 
-const POST_LOGIN = 'POST_LOGIN'
-const SET_USER = 'SET_USER'
-const LOG_OUT = "LOG_OUT"
+const POST_LOGIN = "POST_LOGIN";
+const SET_USER = "SET_USER";
+const LOG_OUT = "LOG_OUT";
 
 const postLogin = createAction(POST_LOGIN, (user) => ({ user }));
 const setUser = createAction(SET_USER, (token) => ({ token }));
-const logOut = createAction(LOG_OUT, (user) => ({user}) ) 
+const logOut = createAction(LOG_OUT, (user) => ({ user }));
 
 const initialState = {
   user: null,
@@ -18,25 +18,26 @@ const initialState = {
 };
 
 const signupMiddleware = (user) => {
-  return (dispatch, {history}) => {
+  return (dispatch, { history }) => {
     apis
       .signUp(user)
-      .then((res)=> {
-       // console.log(res.data);
-      }).catch((error) =>{
+      .then((res) => {
+        // console.log(res.data);
+      })
+      .catch((error) => {
         const errorResposnse = error.response;
-        const errorMessage =
-          errorResposnse?.data?.result ?? "회원가입 실패!.";
+        const errorMessage = errorResposnse?.data?.result ?? "회원가입 실패!.";
         window.alert(errorMessage);
         // history.push("/");
-      })
-  }
-}
+      });
+  };
+};
 const loginMiddleware = (params) => {
   return (dispatch) => {
     apis
       .login(params)
       .then((res) => {
+
        // console.log(res.data[0]);
         const username = res.data[0]
        // console.log(Object.values(username))
@@ -49,26 +50,24 @@ const loginMiddleware = (params) => {
         // 기존에 쿠키가 브라우저 있었으면, 다시 삭제하고 등록해주기!
         if (getCookie("user")) {
           deleteCookie("user");
-        // console.log("user 있음", document.cookie);
+
+          // console.log("user 있음", document.cookie);
         }
         setCookie("user", token);
         // 쿠키 등록이 끝나면 redux user에 세팅해주기!
         dispatch(setUser(token));
         window.alert("로그인 성공!");
       })
-      .catch((error) =>{
-        window.alert("로그인에 실패!")
+      .catch((error) => {
+        window.alert("로그인에 실패!");
         console.log(error);
-      })
-  }
-}
-
+      });
+  };
+};
 
 const logOutMiddleware = async () => {
   return (dispatch, { history }) => {
-    apis
-    .logout()
-    .then((res) => {
+    apis.logout().then((res) => {
       //console.log(res.data);
       dispatch(logOut());
       window.alert("로그아웃 되었습니다");
@@ -77,7 +76,6 @@ const logOutMiddleware = async () => {
     });
   };
 };
-
 
 export default handleActions(
   {

@@ -11,24 +11,28 @@ const Detail = (props) => {
   const dispatch = useDispatch();
   console.log("props.match", props.match);
 
-  const postId = props.match.params.postId;
-  console.log("postId", postId);
-
   const postList = useSelector((state) => state.post.list);
-
-  // postList.filter((post) => post.id === postId);
+  console.log(useSelector((state) => state.post.list));
   console.log(postList);
-  const title = useSelector((state) => state.post.list.title);
-  const contents = useSelector((state) => state.post.list.contents);
-  // console.log("title", title);
+  const currentpostId = props.match.params.postId;
+  console.log("currentpostId", currentpostId);
+  // const post_idx = postList.findIndex((post) => post.postId === currentpostId);
+  // console.log(post_idx);
+  const post = postList.filter(
+    (post) => post.postId === Number(currentpostId)
+  )[0];
+  console.log(post);
+  const title = post.title;
+  const content = post.content;
+  console.log(title, content);
 
   const deletePost = () => {
-    // console.log(postId);
-    dispatch(postActions.deletePostMD(postId));
+    console.log(currentpostId);
+    dispatch(postActions.deletePostMD(currentpostId));
   };
 
   React.useEffect(() => {
-    dispatch(postActions.getPostMD(postId));
+    // dispatch(postActions.getPostMD(currentpostId));
   }, []);
 
   return (
@@ -55,7 +59,7 @@ const Detail = (props) => {
         </Info>
         <Content>
           <div>
-            <p>{contents}</p>
+            <p>{content}</p>
           </div>
           <Writer>
             <Image src={"/img/profile.png"} />
