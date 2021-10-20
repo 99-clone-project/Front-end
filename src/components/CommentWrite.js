@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
@@ -7,36 +7,39 @@ import CommentList from "./CommentList";
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
 
-  console.log(props)
-  
-
-  const postId = useSelector((state) => state.post.list);
+  const url = useSelector((state) => state.router);
+  const postId = url.location.pathname.slice(8);
   const [content, setContent] = React.useState("");
-  console.log(postId);
+  const commentList = useSelector((state) => state.comment.commentList);
+
+  useEffect(() => {
+    dispatch(commentAction.getCommentDB(postId));
+  }, []);
+
   const onChange = (e) => {
     setContent(e.target.value);
   };
-  console.log(content);
-
-  // if (content === "") {
-  //   window.alert("내용을 입력해주세요.");
-  // }
-  // if (user === null) {
-  //   history.push("/");
-  // }
+  // console.log(content);
 
   const setAddComment = () => {
     const comment = {
       postId: postId,
       content: content,
     };
-    dispatch(commentAction.addCommentDB(comment));
 
+    if (content === "") {
+      window.alert("내용을 입력해주세요.");
+    }
+    // if (user === null) {
+    //   history.push("/");
+    // }
+    dispatch(commentAction.addCommentDB(comment));
+    dispatch(commentAction.getCommentDB(postId));
   };
 
   return (
     <React.Fragment>
-      <Count>2개의 댓글</Count>
+      <Count>{commentList?.length}개의 댓글</Count>
       <Container>
         <Input placeholder="댓글을 작성하세요" onChange={onChange} />
         <Button
@@ -47,7 +50,8 @@ const CommentWrite = (props) => {
           댓글 작성
         </Button>
       </Container>
-      <CommentList />
+
+      <CommentList></CommentList>
     </React.Fragment>
   );
 };
