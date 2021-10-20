@@ -2,27 +2,31 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
+import CommentList from "./CommentList";
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
-  const postId = useSelector((state) => state.user.user);
+  const postId = useSelector((state) => state.post);
   const [content, setContent] = React.useState("");
-
+  console.log(postId);
   const onChange = (e) => {
     setContent(e.target.value);
   };
   console.log(content);
 
-  const onClick = () => {
-    dispatch(commentAction.addCommentDB(content));
-  };
+  // if (content === "") {
+  //   window.alert("내용을 입력해주세요.");
+  // }
+  // if (user === null) {
+  //   history.push("/");
+  // }
 
   const setAddComment = () => {
     const comment = {
       postId: postId,
       content: content,
     };
-    dispatch(commentAction.setAddComment(comment));
+    dispatch(commentAction.addCommentDB(comment));
   };
 
   return (
@@ -32,12 +36,13 @@ const CommentWrite = (props) => {
         <Input placeholder="댓글을 작성하세요" onChange={onChange} />
         <Button
           onClick={() => {
-            onClick();
+            setAddComment();
           }}
         >
           댓글 작성
         </Button>
       </Container>
+      <CommentList />
     </React.Fragment>
   );
 };

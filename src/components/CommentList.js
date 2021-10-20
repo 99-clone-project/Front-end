@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const CommentList = (props) => {
+  const { nickname, commentId, content } = props;
+
   return (
     <React.Fragment>
       <Container>
@@ -9,19 +11,26 @@ const CommentList = (props) => {
           <UserInfo>
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
-              <UserName>봄봄</UserName>
-              <Time>30분 전</Time>
+              <UserName>{nickname}</UserName>
+              <Time>시간</Time>
             </div>
           </UserInfo>
           <Edit>
-            <span>수정</span>
-            <span>삭제</span>
+            <span onClick={() => {}}>수정</span>
+            <span onClick={() => {}}>삭제</span>
           </Edit>
         </User>
-        <Content>오늘도 화이팅!</Content>
+        <Content>{content}</Content>
       </Container>
     </React.Fragment>
   );
+};
+
+CommentList.defaultProps = {
+  commentId: 1,
+  nickname: "닉네임입니다.",
+  content: "댓글내용입니다.",
+  regdate: "1시간 전",
 };
 
 const Container = styled.div`

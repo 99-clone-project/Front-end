@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
-import CommentList from "../components/CommentList";
 import CommentWrite from "../components/CommentWrite";
 
 const Detail = (props) => {
@@ -69,7 +68,6 @@ const Detail = (props) => {
         <Hr></Hr>
       </DetailBox>
       <CommentWrite />
-      <CommentList />
     </React.Fragment>
   );
 };
