@@ -18,38 +18,24 @@ const PostList = () => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        HEADER
-        <button
-          onClick={() => {
-            history.push("/postwrite");
-          }}
-        >
-          작성하기
-        </button>
-        <Grid>
-          {postList.map((post, index) => {
-            return <Card post={post} index={index} key={index} />;
-          })}
-        </Grid>
-      </div>
+      <Grid>
+        {postList.map((post, index) => {
+          return <Card post={post} index={index} key={index} />;
+        })}
+      </Grid>
     </>
   );
 };
 
 const Grid = styled.div`
-  /* width: 1055.97px; */
-  margin: auto;
+  box-sizing: border-box;
+  width: 90%;
   display: grid;
-  grid-template-columns: 320px 320px 320px 320px;
+  grid-template-columns: 320px 320px 320px;
+  margin: auto;
   /* grid-template-rows: 331.08px 331.08px 331.08px; */
   gap: 30px;
+  justify-content: center;
 `;
 
 export default PostList;

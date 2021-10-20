@@ -51,7 +51,7 @@ const Card = (props) => {
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
-              alignContent: "center",
+              alignItems: "center",
             }}
           >
             <img
@@ -64,10 +64,13 @@ const Card = (props) => {
                 borderRadius: "50%",
               }}
             />
-            <Span>by</Span>{" "}
+            <Span>by</Span>
             <UserName>{postList[props.index].user.nickname}</UserName>
           </div>
-          <div>하트</div>
+          <Like>
+            <img src={"/img/heart.PNG"} />
+            <span>100</span>
+          </Like>
         </Footer>
       </CardWrap>
     </>
@@ -178,13 +181,28 @@ const Image = styled.image`
 
 const Span = styled.span`
   color: rgb(134, 142, 150);
-  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-right: 0.25rem;
 `;
 
 const UserName = styled.span`
   color: #343a40;
   font-size: 12px;
   font-weight: bold;
+`;
+
+const Like = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 1.75rem;
+    height: 1.6rem;
+  }
+  span {
+    font-size: 0.75rem;
+  }
 `;
 
 export default Card;

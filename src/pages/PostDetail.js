@@ -40,11 +40,11 @@ const Detail = (props) => {
   const title = post.title;
   const content = post.content;
   // console.log(title, content);
-  const rawUserId = post.user.email;
-  const userId = rawUserId.split("@")[0];
-  const nickname = post.user.nickname;
-  const rawLoginUser = localStorage.getItem("nickname");
-  const loginUser = rawLoginUser.split('"')[1];
+  // const rawUserId = post.user.email;
+  // const userId = rawUserId.split("@")[0];
+  // const nickname = post.user.nickname;
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
 
   const modDate = post.regDate.split("T")[0];
   const yearMonthDay = modDate.split("-", 3);
@@ -65,16 +65,16 @@ const Detail = (props) => {
         <h1>{title}</h1>
         <Info>
           <div>
-            <UserName>{userId}</UserName>
+            {/* <UserName>{userId}</UserName> */}
             <Separator>·</Separator>
             <Time>{writtenDate}</Time>
           </div>
-          {nickname == loginUser ? (
-            <div>
-              <button>수정</button>
-              <button onClick={deletePost}>삭제</button>
-            </div>
-          ) : null}
+          {/* {nickname === loginUser ? ( */}
+          <div>
+            <button>수정</button>
+            <button onClick={deletePost}>삭제</button>
+          </div>
+          {/* ) : null} */}
         </Info>
         <Content>
           <div>
@@ -83,7 +83,7 @@ const Detail = (props) => {
           </div>
           <Writer>
             <Image src={"/img/profile.png"} />
-            <div>{nickname}</div>
+            {/* <div>{nickname}</div> */}
           </Writer>
         </Content>
         <Hr></Hr>
