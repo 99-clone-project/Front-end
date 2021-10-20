@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const CommentItem = (props) => {
-  const { nickname, commentId, content } = props;
+  const { commentId, nickname, content, regdate } = props;
 
   return (
     <React.Fragment>
@@ -12,7 +12,7 @@ const CommentItem = (props) => {
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
               <UserName>{nickname}</UserName>
-              <Time>시간</Time>
+              <Time>{regdate}</Time>
             </div>
           </UserInfo>
           <Edit>

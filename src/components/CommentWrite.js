@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
@@ -10,11 +10,16 @@ const CommentWrite = (props) => {
   const url = useSelector((state) => state.router);
   const postId = url.location.pathname.slice(8);
   const [content, setContent] = React.useState("");
+  const commentList = useSelector((state) => state.comment.commentList);
+
+  useEffect(() => {
+    dispatch(commentAction.getCommentDB(postId));
+  }, []);
 
   const onChange = (e) => {
     setContent(e.target.value);
   };
-  console.log(content);
+  // console.log(content);
 
   const setAddComment = () => {
     const comment = {
@@ -34,7 +39,7 @@ const CommentWrite = (props) => {
 
   return (
     <React.Fragment>
-      <Count>2개의 댓글</Count>
+      <Count>{commentList?.length}개의 댓글</Count>
       <Container>
         <Input placeholder="댓글을 작성하세요" onChange={onChange} />
         <Button
@@ -45,7 +50,8 @@ const CommentWrite = (props) => {
           댓글 작성
         </Button>
       </Container>
-      <CommentList />
+
+      <CommentList></CommentList>
     </React.Fragment>
   );
 };
