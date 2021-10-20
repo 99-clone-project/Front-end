@@ -14,29 +14,31 @@ const PostWrite = () => {
   const dispatch = useDispatch();
   const contentRef = useRef();
   const [title, setTitle] = useState("");
+  const [preview, setPreview] = useState("");
 
-  console.log(localStorage.getItem("nickname"));
+  // console.log(localStorage.getItem("nickname"));
 
   const titleChange = (e) => {
     setTitle(e.target.value);
   };
-  console.log(useSelector((state) => state));
+  // console.log(useSelector((state) => state));
+
   const addPost = () => {
     const contentHTML = contentRef.current.getInstance().getHTML();
     // console.log("contentHTML", contentHTML);
     const contentMarkdown = contentRef.current.getInstance().getMarkdown();
     // console.log("contentMarkdown", contentMarkdown);
-    // console.log(contentMarkdown.replaceAll("#", ""));
+    console.log(contentMarkdown.replaceAll("#", ""));
 
     const post = {
       title: title,
-      content: contentMarkdown.replaceAll("#", ""),
-      user: {
-        // nickname: nickname,
-      },
+      content: contentMarkdown,
+      // user: {
+      //   // nickname: nickname,
+      // },
     };
-    // console.log("post", post);
     dispatch(postActions.addPostMD(post));
+    // history.replace("/");
   };
 
   return (
@@ -46,7 +48,7 @@ const PostWrite = () => {
           <TitleInput
             placeholder="제목을 입력하세요"
             onChange={titleChange}
-            value={title}
+            // value={title}
           />
         </Head>
         <Body>
@@ -58,6 +60,8 @@ const PostWrite = () => {
             initialEditType="markdown"
             useCommandShortcut={true}
             placeholder="당신의 이야기를 적어보세요"
+            previewHighlight={false}
+
             // initialValue="당신의 이야기를"
           />
         </Body>

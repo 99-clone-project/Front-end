@@ -8,5 +8,6 @@ export const apis = {
   // post는 /posts라는 주소에다가 post라는 이름으로 그 안에 담긴 값을 준다.
   addPostAX: (posts) => instance.post("/posts", posts),
   getPostAX: () => instance.get("/"),
+  // getPostDetailAX: (currentpostId) => instance.get("/posts/${currentpostId}"),
   deletePostAX: (postId) => instance.delete(`/posts/${postId}`),
 };
