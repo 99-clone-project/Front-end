@@ -10,4 +10,7 @@ export const apis = {
   addPostAX: (posts) => instance.post("/posts", posts),
   getPostAX: () => instance.get("/posts"),
   deletePostAX: (postId) => instance.delete(`/posts/${postId}`),
+
+  addComment: (comment) => instance.post("/comments", comment),
+  getComment: (postId) => instance.get("/comments/{postId}"),
 };

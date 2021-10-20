@@ -5,15 +5,24 @@ import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
-  const [comment_text, setCommentText] = React.useState();
+  const postId = useSelector((state) => state.user.user);
+  const [content, setContent] = React.useState("");
 
   const onChange = (e) => {
-    setCommentText(e.target.value);
+    setContent(e.target.value);
   };
-  console.log(comment_text);
+  console.log(content);
 
   const onClick = () => {
-    dispatch(commentAction.addCommentDB(comment_text));
+    dispatch(commentAction.addCommentDB(content));
+  };
+
+  const setAddComment = () => {
+    const comment = {
+      postId: postId,
+      content: content,
+    };
+    dispatch(commentAction.setAddComment(comment));
   };
 
   return (

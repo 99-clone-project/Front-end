@@ -127,7 +127,7 @@ const Content = styled.div`
   div {
     display: flex;
     font-size: 1.5rem;
-    ine-height: 1.5;
+    line-height: 1.5;
     font-weight: bold;
     color: rgb(33, 37, 41);
     p {

@@ -1,6 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import { apis } from "../../utils/apis";
+
+/* import 'moment';
+import moment from 'moment'; */
 
 // actions Type
 const ADD_COMMENT = "ADD_COMMENT";
@@ -17,7 +21,9 @@ const editComment = createAction(EDIT_COMMENT, (commentId, comment) => ({
   commentId,
   comment,
 }));
-const getComment = createAction(GET_COMMENT, (comments) => ({ comments }));
+const getComment = createAction(GET_COMMENT, (comment_list) => ({
+  comment_list,
+}));
 
 //initialState
 const initialState = {
@@ -25,10 +31,54 @@ const initialState = {
 };
 
 //middleware
-export const addCommentDB = (_comment) => {
+const getCommentDB = (postId) => {
   return function (dispatch, getState, { history }) {
-    console.log("미들웨어", _comment);
-    dispatch(addComment(_comment));
+    apis.get(`/api/comments/${postId}`).then((res) => {
+      dispatch(getComment(res.data));
+    });
+  };
+};
+
+const addCommentDB = (comment) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .addComment(comment)
+      .then((res) => {
+        console.log(res.data);
+        // dispatch(addComment(res.data));
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("댓글 등록에 실패하였습니다.");
+      });
+  };
+};
+
+const editCommentDB = (commentId, data) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .put(`/api/comments/${commentId}`, data)
+      .then((res) => {
+        dispatch(editComment(commentId, res.data));
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("댓글 수정에 실패하였습니다.");
+      });
+  };
+};
+
+const removeCommentDB = (commentId) => {
+  console.log("delete", commentId);
+  return function (dispatch, getState, { history }) {
+    apis
+      .delete(`/api/comments/${commentId}`)
+      .then((res) => {
+        dispatch(removeComment(res.data));
+      })
+      .catch((e) => {
+        alert("댓글 삭제에 실패하였습니다.");
+      });
   };
 };
 
@@ -37,12 +87,30 @@ export default handleActions(
   {
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action);
         draft.commentList.unshift(action.payload.comment);
       }),
-    [REMOVE_COMMENT]: (state, action) => produce(state, (draft) => {}),
-    [EDIT_COMMENT]: (state, action) => produce(state, (draft) => {}),
-    [GET_COMMENT]: (state, action) => produce(state, (draft) => {}),
+    [REMOVE_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        const id = action.payload.commentId;
+        draft.commentList = draft.commentList.filter((e) => {
+          return e.id !== id;
+        });
+      }),
+    [EDIT_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.commentList.findIndex(
+          (e) => e.id === action.payload.commentId
+        );
+        console.log(action.payload.comment);
+
+        draft.commentList[idx] = {
+          ...action.payload.comment,
+        };
+      }),
+    [GET_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.commentList = action.payload.comments;
+      }),
   },
   initialState
 );
@@ -54,6 +122,9 @@ const actionCreators = {
   editComment,
   getComment,
   addCommentDB,
+  getCommentDB,
+  editCommentDB,
+  removeCommentDB,
 };
 
 export { actionCreators };

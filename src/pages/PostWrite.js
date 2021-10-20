@@ -28,7 +28,7 @@ const PostWrite = () => {
 
     const post = {
       title: title,
-      contents: contentMarkdown.replaceAll("#", ""),
+      content: contentMarkdown.replaceAll("#", ""),
     };
     // console.log("post", post);
     dispatch(postActions.addPostMD(post));
