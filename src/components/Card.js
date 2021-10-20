@@ -25,7 +25,10 @@ const Card = (props) => {
   // console.log(postId);
   // const postUser = props.post.user.nickname;
   // console.log(postList[props.index]);
-
+  // console.log(postList[props.index].content);
+  function regExp() {
+    let str = postList[props.index].content;
+  }
   return (
     <>
       <CardWrap
