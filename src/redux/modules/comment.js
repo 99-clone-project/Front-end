@@ -62,25 +62,26 @@ const addCommentDB = (comment) => {
   };
 };
 
-// const editCommentDB = (commentId, data) => {
-//   return function (dispatch, getState, { history }) {
-//     apis
-//       .put(`/api/comments/${commentId}`, data)
-//       .then((res) => {
-//         dispatch(editComment(commentId, res.data));
-//       })
-//       .catch((e) => {
-//         console.error(e);
-//         alert("댓글 수정에 실패하였습니다.");
-//       });
-//   };
-// };
+const editCommentDB = (commentId, data) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .put(`/api/comments/${commentId}`, data)
+      .then((res) => {
+        dispatch(editComment(commentId, res.data));
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("댓글 수정에 실패하였습니다.");
+      });
+  };
+};
 
 const removeCommentDB = (commentId) => {
   return function (dispatch, getState, { history }) {
     apis
-      .removeComment(commentId)
+      .removeComments(commentId)
       .then((res) => {
+        console.log("삭제완료", res);
         dispatch(removeComment(commentId));
       })
       .catch((e) => {
@@ -97,13 +98,13 @@ export default handleActions(
       produce(state, (draft) => {
         draft.commentList.unshift(action.payload.comment);
       }),
-    // [REMOVE_COMMENT]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     const id = action.payload.commentId;
-    //     draft.commentList = draft.commentList.filter((e) => {
-    //       return e.id !== id;
-    //     });
-    //   }),
+    [REMOVE_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.commentList = draft.commentList.filter(
+          (c) => c.commentId !== action.payload.commentId
+        );
+      }),
+
     // [EDIT_COMMENT]: (state, action) =>
     //   produce(state, (draft) => {
     //     let idx = draft.commentList.findIndex(
@@ -131,7 +132,7 @@ const actionCreators = {
   getComment,
   addCommentDB,
   getCommentDB,
-  // editCommentDB,
+  editCommentDB,
   removeCommentDB,
 };
 
