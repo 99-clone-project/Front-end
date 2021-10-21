@@ -43,10 +43,7 @@ const SignUp = (props) => {
     }
     
     dispatch(userActions.signupMiddleware(user))
-
   }
-
-  
 
   return(
     <Grid>

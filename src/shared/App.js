@@ -17,6 +17,7 @@ import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail";
 import { Router } from "react-router";
 
+
 function App() {
   // 1. cookie가 있는지 확인 => getcookie
   const user = useSelector((state) => state.user.user);

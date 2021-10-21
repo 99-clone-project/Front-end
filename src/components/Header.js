@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { Grid, Text, Input } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 
+import Modal from './Modal'
 import Card from "../components/Card"
 import { fontFamily } from "@mui/system";
 
@@ -19,10 +20,7 @@ const Header = (props) => {
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);
-
-  const postList = useSelector((state) => state.post.list);
-  // console.log(postList);
-
+  
   const tologin = () => {
     history.push("/login");
   };
@@ -39,6 +37,11 @@ const Header = (props) => {
     }
   };
 
+  const [modalOpen, setModalOpen] = useState(false)
+    const modalClose = () => {
+        setModalOpen(!modalOpen)
+    }
+
   if (user) {
     return (
       <Grid is_flex>
@@ -48,6 +51,8 @@ const Header = (props) => {
         }}>
          <Font>velog</Font>
         </FontBox>
+        <button onClick={modalClose}>Click</button>
+        { modalOpen && <Modal modalClose={modalClose}></Modal>}
         <div>
           <Btn onClick={() => {
             history.push("postwrite")
