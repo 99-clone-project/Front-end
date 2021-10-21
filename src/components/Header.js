@@ -55,7 +55,7 @@ const Header = (props) => {
               history.push("postwrite");
             }}
           >
-            작성하기
+            새 글 작성
           </Btn>
           <Btn onClick={toLogOut}>로그아웃</Btn>
         </div>

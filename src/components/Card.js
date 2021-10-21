@@ -23,7 +23,7 @@ const Card = (props) => {
   const month = yearMonthDay[1];
   const day = yearMonthDay[2];
   const writtenDate = year + "년 " + month + "월 " + day + "일";
-  console.log(writtenDate);
+  // console.log(writtenDate);
 
   const postId = props.post.postId;
   // console.log(postId);
@@ -33,15 +33,30 @@ const Card = (props) => {
 
   // function regExp() {
   //   let str = postList[props.index].content;
-
   //   // return content;
   // }
 
-  const content = postList[props.index].content;
+  const content = postList[props.index].content.split("![")[0];
   // console.log(content.replaceAll("#", ""));
   const hashContent = content.replaceAll("#", "");
   const starContent = hashContent.replaceAll("*", "");
 
+  // const hello = postList[props.index].image;
+  // const image = hello.replaceAll(")", "");
+  // console.log(image);
+  // console.log(hello.replaceAll(")", ""));
+  // console.log(.replace(")", ""));
+  const image = postList[props.index].image;
+  // const image = rawimage.splice(0, -1);
+  // // const realImage = '"' + image + '"';
+  // console.log(realimage);
+  // https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmNjHs%2FbtqDsbi1lwc%2Fvxx5nhhm1P5IrWPfybL6Dk%2Fimg.png
+  // console.log(image);
+
+  // 	.replace('![image](')
+
+  // slice(0, -1);
+  console.log(useSelector((state) => state.comment));
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);
@@ -53,7 +68,7 @@ const Card = (props) => {
           history.push(`/detail/${postId}`);
         }}
       >
-        <CardImg src="https://media.vlpt.us/images/moseoh/post/02d1cb92-64f8-437d-8932-472a15d85e01/velog_logo.png" />
+        <CardImg src={image} />
         <Body>
           <Title>{postList[props.index].title}</Title>
           <Description>{starContent}</Description>
@@ -125,9 +140,17 @@ const CardWrap = styled.div`
   /* } */
 `;
 
-const CardImg = styled.img`
-  width: 100%;
+const CardImg = styled.div`
+  background-image: url(${(props) => props.src});
   background-size: cover;
+  background-repeat: no-repeat;
+  /* text-align: center;
+  display: flex; */
+  /* justify-content: center;
+  align-items: center;
+  flex-direction: row; */
+  /* margin: auto; */
+  height: 167px;
 `;
 const Body = styled.div`
   display: flex;

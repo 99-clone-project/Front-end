@@ -28,11 +28,22 @@ const PostWrite = () => {
     // console.log("contentHTML", contentHTML);
     const contentMarkdown = contentRef.current.getInstance().getMarkdown();
     // console.log("contentMarkdown", contentMarkdown);
-    console.log(contentMarkdown.replaceAll("#", ""));
+    // console.log(contentMarkdown.replaceAll("#", ""));
+    // const content = contentMarkdown.split("![")[0];
+    // const image = contentMarkdown.replace("![image](", "").slice(0, -1);
+
+    const hello = contentMarkdown.split("](")[1];
+    const image = hello.split(")")[0];
+    // console.log(image);
+
+    // https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmNjHs%2FbtqDsbi1lwc%2Fvxx5nhhm1P5IrWPfybL6Dk%2Fimg.png
+
+    // https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmNjHs%2FbtqDsbi1lwc%2Fvxx5nhhm1P5IrWPfybL6Dk%2Fimg.png
 
     const post = {
       title: title,
       content: contentMarkdown,
+      image: image,
       // user: {
       //   // nickname: nickname,
       // },
@@ -41,7 +52,13 @@ const PostWrite = () => {
     // history.replace("/");
   };
 
-  return (
+  // https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmNjHs%2FbtqDsbi1lwc%2Fvxx5nhhm1P5IrWPfybL6Dk%2Fimg.png
+  // console.log(image);
+  // 	.replace('![image](')
+  // slice(0, -1);
+  //www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.vlpt.us%2Fimages%2Fvelog%2Fpost%2Fc18337a6-e95c-4286-89a8-0655e18282dc%2Fimage.png&imgrefurl=https%3A%2F%2Fvelog.io%2F%40velog%2Fv2-update&tbnid=hDO-JYL8EtGrOM&vet=12ahUKEwjl4bb209rzAhVJ-5QKHbT9A2wQMygCegUIARCbAQ..i&docid=XyNcwWtWleL8VM&w=1137&h=1127&q=%EB%B2%A8%EB%A1%9C%EA%B7%B8&ved=2ahUKEwjl4bb209rzAhVJ-5QKHbT9A2wQMygCegUIARCbAQ
+
+  https: return (
     <>
       <Wrap>
         <Head>
@@ -56,7 +73,7 @@ const PostWrite = () => {
             ref={contentRef}
             previewStyle="vertical"
             width="100%"
-            height="600px"
+            height="80vh"
             initialEditType="markdown"
             useCommandShortcut={true}
             placeholder="당신의 이야기를 적어보세요"
@@ -73,7 +90,10 @@ const PostWrite = () => {
           >
             나가기
           </ExitBtn>
-          <SubmitBtn onClick={addPost}>출간하기</SubmitBtn>
+          <div style={{ display: "flex" }}>
+            <SaveBtn>임시저장</SaveBtn>
+            <SubmitBtn onClick={addPost}>출간하기</SubmitBtn>
+          </div>
         </Footer>
       </Wrap>
     </>
@@ -113,17 +133,17 @@ const TextArea = styled.textarea`
 `;
 const Footer = styled.div`
   position: fixed;
-  width: 50vw;
+  width: 100%;
 
   bottom: 0;
-  /* left: 0; */
+  left: 0;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  width: 678.99px;
+  /* width: 50; */
   height: 63.993px;
   padding: 0 16px;
 
@@ -135,10 +155,86 @@ const ExitBtn = styled.button`
   width: 82.257px;
   height: 40px;
   padding: 0 20px;
+  display: flex;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: #e5e5e5;
+  color: black;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: inherit;
+  outline: none;
+`;
+
+const SaveBtn = styled.button`
+  width: 82.257px;
+  height: 40px;
+  padding: 0 20px;
+  display: flex;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: #e5e5e5;
+  color: black;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: inherit;
+  outline: none;
 `;
 const SubmitBtn = styled.button`
   width: 82.257px;
   height: 40px;
   padding: 0 20px;
+  display: flex;
+  margin-right: 30px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: rgb(18, 184, 134);
+  color: white;
+  border-radius: 4px;
+  /* padding: 0.625rem 1.25rem; */
+  /* height: 2rem; */
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: inherit;
+  outline: none;
+  /* width: 110px; */
+  &:hover {
+    background-color: #45d1a7;
+  }
+`;
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: rgb(18, 184, 134);
+  color: white;
+  border-radius: 4px;
+  /* padding: 0.625rem 1.25rem; */
+  /* height: 2rem; */
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: inherit;
+  outline: none;
+  /* width: 110px; */
+  &:hover {
+    background-color: #45d1a7;
+  }
 `;
 export default PostWrite;
