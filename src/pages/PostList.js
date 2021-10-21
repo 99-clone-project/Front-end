@@ -41,7 +41,13 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 320px 320px 320px 320px;
   /* grid-template-rows: 331.08px 331.08px 331.08px; */
-  gap: 30px;
+  gap: 2rem;
+  @media screen and (max-width: 1430px) {
+    grid-template-columns: 320px 320px 320px;
+  }
+  @media screen and (max-width: 1030px) {
+    grid-template-columns: 320px 320px;
+  }
 `;
 
 export default PostList;

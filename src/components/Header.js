@@ -8,7 +8,7 @@ import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 
-import Card from "../components/Card"
+import Card from "../components/Card";
 import { fontFamily } from "@mui/system";
 
 const Header = (props) => {
@@ -41,30 +41,36 @@ const Header = (props) => {
 
   if (user) {
     return (
-      <Grid is_flex>
+      <Grid is_flex height="4rem" width="90%">
         <FontBox
-        onClick={()=>{
-          history.push("/")
-        }}>
-         <Font>velog</Font>
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          <Font>velog</Font>
         </FontBox>
         <div>
-          <Btn onClick={() => {
-            history.push("postwrite")
-          }}>작성하기</Btn>
+          <Btn
+            onClick={() => {
+              history.push("postwrite");
+            }}
+          >
+            작성하기
+          </Btn>
           <Btn onClick={toLogOut}>로그아웃</Btn>
         </div>
       </Grid>
     );
   }
   return (
-    <Grid is_flex>
+    <Grid is_flex height="4rem" width="90%">
       <FontBox
-        onClick={()=>{
-          history.push("/")
-        }}>
-         <Font>velog</Font>
-        </FontBox>
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        <Font>velog</Font>
+      </FontBox>
       <div>
         <Btn onClick={tologin}>로그인</Btn>
         <Btn onClick={toSignup}>회원가입</Btn>
@@ -75,18 +81,17 @@ const Header = (props) => {
 
 const FontBox = styled.div`
   padding: 10px;
-  margin-left: 15px;
   cursor: pointer;
 `;
 
 const Font = styled.text`
- // padding: 10px;
- // background-color: orange;
-  font-size: 20px;
+  // padding: 10px;
+  // background-color: orange;
+  font-size: 24px;
   font-family: "firaMono-Medium";
   color: rgb(52, 58, 64);
- // display: inline-block;
- // margin-left: 15px;
+  // display: inline-block;
+  // margin-left: 15px;
 `;
 
 const Btn = styled.button`
@@ -101,7 +106,7 @@ const Btn = styled.button`
   border: none;
   &:hover {
     background-color: #868e96;
-    transition: .125s;
+    transition: 0.125s;
   }
 `;
 

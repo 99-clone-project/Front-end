@@ -53,10 +53,7 @@ const Card = (props) => {
           history.push(`/detail/${postId}`);
         }}
       >
-        <Head>
-          {/* <CardImg src={postList[props.index].image} /> */}
-          <CardImg src="https://media.vlpt.us/images/moseoh/post/02d1cb92-64f8-437d-8932-472a15d85e01/velog_logo.png" />
-        </Head>
+        <CardImg src="https://media.vlpt.us/images/moseoh/post/02d1cb92-64f8-437d-8932-472a15d85e01/velog_logo.png" />
         <Body>
           <Title>{postList[props.index].title}</Title>
           <Description>{starContent}</Description>
@@ -68,7 +65,7 @@ const Card = (props) => {
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
-              alignContent: "center",
+              alignItems: "center",
             }}
           >
             <img
@@ -81,10 +78,13 @@ const Card = (props) => {
                 borderRadius: "50%",
               }}
             />
-            <Span>by</Span>{" "}
+            <Span>by</Span>
             <UserName>{postList[props.index].user.nickname}</UserName>
           </div>
-          <div>하트</div>
+          <Like>
+            <img src={"/img/heart.PNG"} />
+            <span>100</span>
+          </Like>
         </Footer>
       </CardWrap>
     </>
@@ -92,36 +92,39 @@ const Card = (props) => {
 };
 
 const CardWrap = styled.div`
-  width: 320px;
-  cursor: pointer;
-  /* margin: 50px; */
-  /* box-shadow: 3px 3px 15px 1px #e5e5e5; */
-  /* &:hover {
-    box-shadow: 3px 3px 15px 1px #9e9e9e;
-    transition: 0.3s; */
-  /* margin-top: 1px; */
-  /* } */
-  /* width: 340px; */
-  /* height: 380px; */
+  width: 20rem;
+  background: white;
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  margin: 1rem;
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
+  box-shadow: 3px 3px 15px 1px #e5e5e5;
+  &:hover {
+    box-shadow: 3px 3px 15px 1px #9e9e9e;
+    transition: 0.3s;
+    cursor: pointer;
+    transform: translateY(-8px);
+  }
+  width: 320px;
+  /* height: 380px; */
+  /* display: flex;
   flex-direction: column;
   justify-content: flex;
   transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   box-shadow: 3px 3px 15px 1px #e5e5e5;
   margin-right: 20px;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: white;
   :hover {
-    cursor: pointer;
-    transform: translateY(-8px);
-    /* box-shadow: 0 3px 40px 0 #ddd; */
-    box-shadow: 3px 3px 15px 1px #9e9e9e;
-  }
+  */
+  /* box-shadow: 0 3px 40px 0 #ddd; */
+  /* box-shadow: 3px 3px 15px 1px #9e9e9e; */
+  /* } */
 `;
-const Head = styled.div`
-  width: 320px;
-  height: 167.01px;
-`;
+
 const CardImg = styled.img`
   width: 100%;
   background-size: cover;
@@ -195,13 +198,28 @@ const Image = styled.image`
 
 const Span = styled.span`
   color: rgb(134, 142, 150);
-  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-right: 0.25rem;
 `;
 
 const UserName = styled.span`
   color: #343a40;
   font-size: 12px;
   font-weight: bold;
+`;
+
+const Like = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 1.75rem;
+    height: 1.6rem;
+  }
+  span {
+    font-size: 0.75rem;
+  }
 `;
 
 export default Card;
