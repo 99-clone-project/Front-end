@@ -14,16 +14,6 @@ const Detail = (props) => {
   const currentpostId = props.match.params.postId;
   // console.log("currentpostId", currentpostId);
 
-  React.useEffect(() => {
-    // async function fetchData() {
-    //   const res = await apis.getPostDetailAX(currentpostId);
-    //   setPost(res.data.post);
-    //   console.log(res.data);
-    // }
-    // fetchData();
-    // dispatch(postActions.getPostMD(currentpostId));
-  }, []);
-
   const postList = useSelector((state) => state.post.list);
   // console.log(useSelector((state) => state));
   // console.log(postList);
@@ -39,7 +29,8 @@ const Detail = (props) => {
 
   const title = post.title;
   const content = post.content;
-  // console.log(title, content);
+  console.log(title, content);
+
   const rawUserId = post.user.email;
   const userId = rawUserId.split("@")[0];
   const nickname = post.user.nickname;
@@ -59,6 +50,15 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(currentpostId));
   };
 
+  React.useEffect(() => {
+    // async function fetchData() {
+    //   const res = await apis.getPostDetailAX(currentpostId);
+    //   setPost(res.data.post);
+    //   console.log(res.data);
+    // }
+    // fetchData();
+    dispatch(postActions.getPostMD());
+  }, []);
   return (
     <React.Fragment>
       <DetailBox>

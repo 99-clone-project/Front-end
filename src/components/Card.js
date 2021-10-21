@@ -5,8 +5,12 @@ import styled from "styled-components";
 import profile from "../assets/profile.png";
 // import PostList from "../pages/PostList";
 import { history } from "../redux/configureStore";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch } from "react-redux";
 
 const Card = (props) => {
+  const dispatch = useDispatch();
+
   const postList = useSelector((state) => state.post.list);
   // console.log("스테이트.포스트.리스트", postList);
   // console.log("postList", postList);
@@ -19,16 +23,29 @@ const Card = (props) => {
   const month = yearMonthDay[1];
   const day = yearMonthDay[2];
   const writtenDate = year + "년 " + month + "월 " + day + "일";
-  // console.log(writtenDate);
+  console.log(writtenDate);
 
   const postId = props.post.postId;
   // console.log(postId);
   // const postUser = props.post.user.nickname;
   // console.log(postList[props.index]);
   // console.log(postList[props.index].content);
-  function regExp() {
-    let str = postList[props.index].content;
-  }
+
+  // function regExp() {
+  //   let str = postList[props.index].content;
+
+  //   // return content;
+  // }
+
+  const content = postList[props.index].content;
+  // console.log(content.replaceAll("#", ""));
+  const hashContent = content.replaceAll("#", "");
+  const starContent = hashContent.replaceAll("*", "");
+
+  React.useEffect(() => {
+    dispatch(postActions.getPostMD());
+  }, []);
+
   return (
     <>
       <CardWrap
@@ -42,7 +59,7 @@ const Card = (props) => {
         </Head>
         <Body>
           <Title>{postList[props.index].title}</Title>
-          <Description>{postList[props.index].content}</Description>
+          <Description>{starContent}</Description>
           <Date>{writtenDate}</Date>
         </Body>
         <Footer>
