@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
-  const { commentId, nickname, content, regdate } = props;
+  const { commentId, nickname, content } = props;
   const url = useSelector((state) => state.router);
   const postId = url.location.pathname.slice(8);
   const dispatch = useDispatch();
@@ -16,8 +16,17 @@ const CommentItem = (props) => {
   const handleDelete = () => {
     const result = window.confirm("댓글을 정말로 삭제하시겠습니까?");
     if (result) {
-      dispatch(commentAction.getCommentDB(postId));
+      dispatch(commentAction.removeCommentDB(commentId));
     }
+  };
+
+  const handleModify = () => {
+    // const comment = {
+    //   commentId: commentId,
+    //   content: content,
+    // };
+    // console.log("수정버튼누르면", comment);
+    // dispatch(commentAction.editCommentDB(comment));
   };
 
   return (
@@ -28,11 +37,11 @@ const CommentItem = (props) => {
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
               <UserName>{nickname}</UserName>
-              <Time>{regdate}</Time>
+              <Time>시간</Time>
             </div>
           </UserInfo>
           <Edit>
-            <span onClick={() => {}}>수정</span>
+            <span onClick={handleModify}>수정</span>
             <span onClick={handleDelete}>삭제</span>
           </Edit>
         </User>
@@ -50,13 +59,13 @@ const CommentItem = (props) => {
 
 CommentItem.defaultProps = {
   commentId: 1,
-  nickname: "닉네임입니다.",
-  content: "댓글내용입니다.",
+  nickname: "닉네임",
+  content: "댓글내용",
   regdate: "1시간 전",
 };
 
 const Container = styled.div`
-  margin-top: 2.5rem;
+  margin: 2.5rem;
   box-sizing: border-box;
   width: 100%;
   max-width: 768px;
