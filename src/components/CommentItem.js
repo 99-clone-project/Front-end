@@ -1,9 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
   const { commentId, nickname, content, regdate } = props;
+  const url = useSelector((state) => state.router);
+  const postId = url.location.pathname.slice(8);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(commentAction.getCommentDB(postId));
+  }, []);
+
+  const handleDelete = () => {
+    const result = window.confirm("댓글을 정말로 삭제하시겠습니까?");
+    if (result) {
+      dispatch(commentAction.getCommentDB(postId));
+    }
+  };
 
   return (
     <React.Fragment>
@@ -18,10 +34,16 @@ const CommentItem = (props) => {
           </UserInfo>
           <Edit>
             <span onClick={() => {}}>수정</span>
-            <span onClick={() => {}}>삭제</span>
+            <span onClick={handleDelete}>삭제</span>
           </Edit>
         </User>
         <Content>{content}</Content>
+        <PlusComment>
+          <span>
+            <i className="xi-plus-square-o"></i>
+          </span>
+          <span>답글 달기</span>
+        </PlusComment>
       </Container>
     </React.Fragment>
   );
@@ -41,6 +63,8 @@ const Container = styled.div`
   max-width: 768px;
   min-width: 452px;
   margin: auto;
+  border-bottom: 1px solid rgb(233, 236, 239);
+  padding: 1.5rem 0 1.5rem 0;
 `;
 
 const User = styled.div`
@@ -80,7 +104,7 @@ const Content = styled.div`
   word-break: keep-all;
   overflow-wrap: break-word;
   text-align: left;
-  margin: 1.5rem 0 2rem 0;
+  margin: 1.5rem 0 0 0;
 `;
 
 const Edit = styled.div`
@@ -93,6 +117,18 @@ const Edit = styled.div`
       text-decoration: underline;
       color: #b0b5c3;
     }
+  }
+`;
+
+const PlusComment = styled.div`
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  color: rgb(18, 184, 134);
+  font-weight: bold;
+  cursor: pointer;
+  i {
+    margin-right: 0.5rem;
   }
 `;
 

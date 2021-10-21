@@ -76,19 +76,19 @@ const addCommentDB = (comment) => {
 //   };
 // };
 
-// const removeCommentDB = (commentId) => {
-//   console.log("delete", commentId);
-//   return function (dispatch, getState, { history }) {
-//     apis
-//       .delete(`/api/comments/${commentId}`)
-//       .then((res) => {
-//         dispatch(removeComment(res.data));
-//       })
-//       .catch((e) => {
-//         alert("댓글 삭제에 실패하였습니다.");
-//       });
-//   };
-// };
+const removeCommentDB = (commentId) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .removeComment(commentId)
+      .then((res) => {
+        dispatch(removeComment(commentId));
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("댓글 삭제에 실패하였습니다.");
+      });
+  };
+};
 
 //reducer
 export default handleActions(
@@ -132,7 +132,7 @@ const actionCreators = {
   addCommentDB,
   getCommentDB,
   // editCommentDB,
-  // removeCommentDB,
+  removeCommentDB,
 };
 
 export { actionCreators };
