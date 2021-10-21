@@ -1,8 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
   const { commentId, nickname, content, regdate } = props;
+  const url = useSelector((state) => state.router);
+  const postId = url.location.pathname.slice(8);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(commentAction.removeCommentDB(commentId));
+  }, []);
+
+  const handleDelete = () => {
+    const result = window.confirm("댓글을 정말로 삭제하시겠습니까?");
+    if (result) {
+      dispatch(commentAction.getCommentDB(postId));
+    }
+  };
 
   return (
     <React.Fragment>
@@ -17,7 +33,7 @@ const CommentItem = (props) => {
           </UserInfo>
           <Edit>
             <span onClick={() => {}}>수정</span>
-            <span onClick={() => {}}>삭제</span>
+            <span onClick={handleDelete}>삭제</span>
           </Edit>
         </User>
         <Content>{content}</Content>
