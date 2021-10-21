@@ -77,12 +77,10 @@ const addCommentDB = (comment) => {
 // };
 
 const removeCommentDB = (commentId) => {
-  console.log("delete", commentId);
   return function (dispatch, getState, { history }) {
     apis
       .removeComment(commentId)
       .then((res) => {
-        // console.log(res.data);
         dispatch(removeComment(commentId));
       })
       .catch((e) => {

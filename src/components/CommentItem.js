@@ -10,7 +10,7 @@ const CommentItem = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(commentAction.removeCommentDB(commentId));
+    dispatch(commentAction.getCommentDB(postId));
   }, []);
 
   const handleDelete = () => {
@@ -37,6 +37,12 @@ const CommentItem = (props) => {
           </Edit>
         </User>
         <Content>{content}</Content>
+        <PlusComment>
+          <span>
+            <i className="xi-plus-square-o"></i>
+          </span>
+          <span>답글 달기</span>
+        </PlusComment>
       </Container>
     </React.Fragment>
   );
@@ -56,6 +62,8 @@ const Container = styled.div`
   max-width: 768px;
   min-width: 452px;
   margin: auto;
+  border-bottom: 1px solid rgb(233, 236, 239);
+  padding: 1.5rem 0 1.5rem 0;
 `;
 
 const User = styled.div`
@@ -95,7 +103,7 @@ const Content = styled.div`
   word-break: keep-all;
   overflow-wrap: break-word;
   text-align: left;
-  margin: 1.5rem 0 2rem 0;
+  margin: 1.5rem 0 0 0;
 `;
 
 const Edit = styled.div`
@@ -108,6 +116,18 @@ const Edit = styled.div`
       text-decoration: underline;
       color: #b0b5c3;
     }
+  }
+`;
+
+const PlusComment = styled.div`
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  color: rgb(18, 184, 134);
+  font-weight: bold;
+  cursor: pointer;
+  i {
+    margin-right: 0.5rem;
   }
 `;
 
