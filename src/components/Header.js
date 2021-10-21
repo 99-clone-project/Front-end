@@ -9,9 +9,14 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 import Card from "../components/Card";
-import { fontFamily } from "@mui/system";
+import { fontFamily, fontSize } from "@mui/system";
+import { BsSearch } from "react-icons/bs";
 
 const Header = (props) => {
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
+  // const initial = loginUser.charAt(1).toUpperCase();
+  // console.log(initial);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   // console.log(user);
@@ -41,7 +46,7 @@ const Header = (props) => {
 
   if (user) {
     return (
-      <Grid is_flex height="4rem" width="90%">
+      <Grid is_flex height="63.99px" width="90%">
         <FontBox
           onClick={() => {
             history.push("/");
@@ -50,6 +55,14 @@ const Header = (props) => {
           <Font>velog</Font>
         </FontBox>
         <div>
+          <BsSearch
+            style={{
+              width: "25px",
+              height: "25px",
+              marginRight: "10px",
+              marginBottom: "-7px",
+            }}
+          />
           <Btn
             onClick={() => {
               history.push("postwrite");
@@ -57,7 +70,22 @@ const Header = (props) => {
           >
             새 글 작성
           </Btn>
-          <Btn onClick={toLogOut}>로그아웃</Btn>
+
+          <button
+            onClick={toLogOut}
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              backgroundColor: "#5f4541",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "15px",
+              border: "none",
+            }}
+          >
+            {/* <div>{initial}</div> */}
+          </button>
         </div>
       </Grid>
     );
@@ -98,12 +126,16 @@ const Btn = styled.button`
   cursor: pointer;
   margin: 15px 10px 15px 0px;
   font-size: 14px;
-  background-color: #343a40;
-  color: white;
+  background-color: white;
+
+  /* background-color: #343a40; */
+  color: #343a40;
+  font-size: 17px;
   padding: 10px 15px;
   font-weight: bold;
   border-radius: 25px;
-  border: none;
+  border: 1px solid #343a40;
+
   &:hover {
     background-color: #868e96;
     transition: 0.125s;

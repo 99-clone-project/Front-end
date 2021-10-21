@@ -27,7 +27,7 @@ const PostList = () => {
   return (
     <>
       <Wrapper>
-        <Button>
+        <Button style={{ color: "#343a40" }}>
           <div
             style={{
               marginRight: "10px",
@@ -42,7 +42,7 @@ const PostList = () => {
           />
           트렌딩
         </Button>
-        <Button>
+        <Button style={{ color: "#343a40" }}>
           <div
             style={{
               marginRight: "10px",

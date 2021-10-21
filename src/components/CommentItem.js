@@ -5,10 +5,30 @@ import { useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
-  const { commentId, nickname, content, regdate } = props;
+  const { commentId, nickname, content, regdate, index } = props;
   const url = useSelector((state) => state.router);
   const postId = url.location.pathname.slice(8);
   const dispatch = useDispatch();
+
+  // const userName = useSelector(
+  //   (state) => state.comment.commentList[props.index].user.nickname
+  // );
+
+  // console.log(
+  //   "스테이트",
+  //   useSelector((state) => state)
+  // );
+
+  // console.log(
+  //   "스테이트.코멘트.코멘트리스트.프랍스인덱스",
+  //   useSelector((state) => state.comment.commentList[props.index].user.nickname)
+  // );
+  const commentUserName = useSelector(
+    (state) => state.comment.commentList[props.index].user.nickname
+  );
+
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
 
   React.useEffect(() => {
     dispatch(commentAction.getCommentDB(postId));
@@ -28,7 +48,7 @@ const CommentItem = (props) => {
           <UserInfo>
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
-              <UserName>{nickname}</UserName>
+              <UserName>{commentUserName}</UserName>
               <Time>{regdate}</Time>
             </div>
           </UserInfo>

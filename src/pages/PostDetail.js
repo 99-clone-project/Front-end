@@ -31,11 +31,11 @@ const Detail = (props) => {
   const content = post.content;
   console.log(title, content);
 
-  const rawUserId = post.user.email;
-  const userId = rawUserId.split("@")[0];
-  const nickname = post.user.nickname;
-  const rawLoginUser = localStorage.getItem("nickname");
-  const loginUser = rawLoginUser.split('"')[1];
+  // const rawUserId = post.user.email;
+  // const userId = rawUserId.split("@")[0];
+  // const nickname = post.user.nickname;
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
 
   const modDate = post.regDate.split("T")[0];
   const yearMonthDay = modDate.split("-", 3);
@@ -65,25 +65,26 @@ const Detail = (props) => {
         <h1>{title}</h1>
         <Info>
           <div>
-            <UserName>{userId}</UserName>
+            {/* <UserName>{userId}</UserName> */}
             <Separator>·</Separator>
             <Time>{writtenDate}</Time>
           </div>
-          {nickname === loginUser ? (
-            <div>
-              <button>수정</button>
-              <button onClick={deletePost}>삭제</button>
-            </div>
-          ) : null}
+          {/* {nickname === loginUser ? ( */}
+          <div>
+            <button>수정</button>
+            <button onClick={deletePost}>삭제</button>
+          </div>
+          {/* ) : null} */}
         </Info>
         <Content>
+          <Box>COMPUTER-SCIENCE</Box>
           <div>
             <Viewer initialValue={content} height="1000px" />
             {/* <div dangerouslySetInnerHTML={{ __html: content }}></div> */}
           </div>
           <Writer>
             <Image src={"/img/profile.png"} />
-            <div>{nickname}</div>
+            {/* <div>{nickname}</div> */}
           </Writer>
         </Content>
         <Hr></Hr>
@@ -93,6 +94,14 @@ const Detail = (props) => {
   );
 };
 
+const Box = styled.div`
+  width: 736.01px;
+  height: 120.86px;
+  margin-top: 2rem;
+  padding: 2rem 1.5rem;
+  background: #e5e5e5;
+  box-shadow: rgb(0 0 0 / 6%) 0px 0px 4px 0px;
+`;
 const DetailBox = styled.div`
   box-sizing: border-box;
   max-width: 768px;
