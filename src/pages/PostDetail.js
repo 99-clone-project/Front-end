@@ -127,7 +127,6 @@ const Detail = (props) => {
               </BoxFooterRight>
             </BoxFooter>
           </Box>
-
           <div>
             <Viewer initialValue={content} height="1000px" />
           </div>
@@ -147,7 +146,6 @@ const Like = styled.div`
   position: fixed;
   top: 112px;
   left: 550px;
-
   width: 4rem;
   background: rgb(248, 249, 250);
   border: 1px solid rgb(241, 243, 245);
@@ -180,6 +178,8 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  border-radius: 5px;
 
   width: 688.007px;
   height: 100.861px;
