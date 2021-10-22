@@ -71,6 +71,7 @@ const Detail = (props) => {
       console.error(err);
     }
   };
+
   if (user) {
     return (
       <>

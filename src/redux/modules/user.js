@@ -22,7 +22,6 @@ const signupMiddleware = (user) => {
     apis
       .signUp(user)
       .then((res) => {
-        // console.log(res.data);
         window.alert("회원가입에 성공하셨습니다!");
       })
       .catch((error) => {
