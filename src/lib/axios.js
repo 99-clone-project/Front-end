@@ -7,6 +7,10 @@ const instance = axios.create({
 
   // 재환님 서버
   baseURL: "http://jhhong0930.shop/",
+
+  // 지은님 서버
+  // baseURL: "http://13.209.98.45/",
+
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",

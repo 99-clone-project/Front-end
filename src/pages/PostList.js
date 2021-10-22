@@ -37,7 +37,7 @@ const PostList = () => {
               marginRight: "10px",
             }}
           />
-          트렌딩
+          <span style={{ width: "50px" }}>트렌딩</span>
         </Button>
         <Button style={{ color: "#343a40" }}>
           <div
