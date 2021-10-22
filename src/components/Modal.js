@@ -21,13 +21,16 @@ const Modal = ({ modalClose }) => {
   };
   return (
     <>
-      <Container>
+      <Container onClick={onCloseModal}>
         <ModalBox>
           <WelcomeBox>
             <WelcomeImg src="/img/welcome.png"></WelcomeImg>
             <WelcomeText>환영합니다!</WelcomeText>
           </WelcomeBox>
           <UserBox>
+            <ModalButton
+              onClick={modalClose}
+            >X</ModalButton>
             {!status && <Login />}
             {status && <SignUp />}
             <ChangeDiv>
@@ -54,6 +57,15 @@ const Modal = ({ modalClose }) => {
     </>
   );
 };
+
+
+const ModalButton = styled.div`
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  left: 595px;
+  transform: translate(-50%, -50%);
+`;
 
 const ChangeDiv = styled.div`
   display: flex;
@@ -132,11 +144,5 @@ const ModalBox = styled.div`
   z-index: 100;
 `;
 
-const ModalButton = styled.div`
-  position: relative;
-  left: 80%;
-  top: 10%;
-  transform: translate(-50%, -50%);
-`;
 
 export default Modal;

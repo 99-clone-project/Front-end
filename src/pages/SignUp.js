@@ -101,7 +101,7 @@ const SignUp = (props) => {
 
 const UserBox = styled.div`
   margin: auto;
-  padding: 20px;
+  padding: 10px;
   min-width: 250px;
   width: auto;
   height: auto;
