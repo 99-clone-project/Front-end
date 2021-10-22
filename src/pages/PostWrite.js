@@ -1,10 +1,10 @@
 import { React, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import post, { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as postActions } from "../redux/modules/post";
 import { history } from "../redux/configureStore";
 
-// import "codemirror/lib/codemirror.css";
+// 마크다운 라이브러리 토스트 ui 사용
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 
@@ -12,38 +12,31 @@ const PostWrite = () => {
   const dispatch = useDispatch();
   const contentRef = useRef();
   const [title, setTitle] = useState("");
-  const [preview, setPreview] = useState("");
-
-  // console.log(localStorage.getItem("nickname"));
 
   const titleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const addPost = () => {
+    // 마크다운 언어를 서버에 저장하기위해서 변형함
     const contentHTML = contentRef.current.getInstance().getHTML();
     const contentMarkdown = contentRef.current.getInstance().getMarkdown();
 
-    const hello = contentMarkdown.split("](")[1];
-    const image = hello.split(")")[0];
+    // const hello = contentMarkdown.split("](")[1];
+    // const image = hello.split(")")[0];
     const post = {
       title: title,
       content: contentMarkdown,
-      image: image,
+      // image: image,
     };
-
     dispatch(postActions.addPostMD(post));
   };
 
-  https: return (
+  return (
     <>
       <Wrap>
         <Head>
-          <TitleInput
-            placeholder="제목을 입력하세요"
-            onChange={titleChange}
-            // value={title}
-          />
+          <TitleInput placeholder="제목을 입력하세요" onChange={titleChange} />
         </Head>
         <Body>
           <Editor
@@ -82,7 +75,6 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 711.11px; */
   width: 100vw;
   height: 90vh;
   margin: auto;
@@ -90,8 +82,6 @@ const Wrap = styled.div`
 `;
 const Head = styled.div`
   width: 100vw;
-  /* height: 156.056px; */
-  /* padding: 32px 48px 0; */
 `;
 const TitleInput = styled.input`
   width: 100vw;
@@ -104,28 +94,18 @@ const Body = styled.div`
   width: 100vw;
   padding: 0 48px;
 `;
-const TextArea = styled.textarea`
-  width: 100vw;
-  height: 500px;
-`;
 const Footer = styled.div`
   position: fixed;
   width: 100%;
-
   bottom: 0;
   left: 0;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-  /* width: 50; */
   height: 63.993px;
   padding: 0 16px;
-
   box-shadow: 3px 3px 15px 1px #9e9e9e;
-  /* z-index: 100; */
   background-color: #fff;
 `;
 const ExitBtn = styled.button`
@@ -181,13 +161,10 @@ const SubmitBtn = styled.button`
   background: rgb(18, 184, 134);
   color: white;
   border-radius: 4px;
-  /* padding: 0.625rem 1.25rem; */
-  /* height: 2rem; */
   font-size: 1rem;
   font-family: inherit;
   box-sizing: inherit;
   outline: none;
-  /* width: 110px; */
   &:hover {
     background-color: #45d1a7;
   }
@@ -203,13 +180,10 @@ const Button = styled.button`
   background: rgb(18, 184, 134);
   color: white;
   border-radius: 4px;
-  /* padding: 0.625rem 1.25rem; */
-  /* height: 2rem; */
   font-size: 1rem;
   font-family: inherit;
   box-sizing: inherit;
   outline: none;
-  /* width: 110px; */
   &:hover {
     background-color: #45d1a7;
   }

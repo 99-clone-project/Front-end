@@ -5,7 +5,6 @@ const instance = axios.create({
   // 제이슨 서버
   // baseURL: "http://localhost:4000",
 
-  // 합본
   // 재환님 서버
   baseURL: "http://jhhong0930.shop/",
   headers: {
@@ -14,7 +13,7 @@ const instance = axios.create({
     Authorization: `${getCookie("user")}`,
     // Authorization: `Bearer ${localStorage.getItem("token")}`
   },
-  withCredentials: true ,
+  withCredentials: true,
 });
 
 export default instance;

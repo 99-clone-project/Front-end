@@ -1,39 +1,40 @@
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import CommentWrite from "../components/CommentWrite";
+import { actionCreators as postActions } from "../redux/modules/post";
+
+// 마크다운 뷰어 토스트ui 라이브러리 사용
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { Viewer } from "@toast-ui/react-editor";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { actionCreators as postActions } from "../redux/modules/post";
-import { useParams } from "react-router-dom";
-import { history } from "../redux/configureStore";
-import CommentWrite from "../components/CommentWrite";
-import { apis } from "../utils/apis";
 
+// React Icons
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { RiBookmarkFill } from "react-icons/ri";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
+
+  // 지금 보고있는 게시물의 postId, title, content
   const currentpostId = props.match.params.postId;
   const postList = useSelector((state) => state.post.list);
   const post = postList.filter(
     (post) => post.postId === Number(currentpostId)
   )[0];
-
-  // const post_idx = postList.findIndex(
-  //   (post) => post.postId === Number(currentpostId)
-  // );
-
   const title = post.title;
   const content = post.content;
 
+  // 지금 로그인 한 유저의 이메일 앞부분
   const rawUserId = post.user.email;
   const userId = rawUserId.split("@")[0];
   const nickname = post.user.nickname;
+
+  // 지금 로그인 한 유저의 닉네임
   const rawLoginUser = localStorage.getItem("nickname");
   const loginUser = rawLoginUser.split('"')[1];
 
+  // 게시물 작성 날짜
   const modDate = post.regDate.split("T")[0];
   const yearMonthDay = modDate.split("-", 3);
   const year = yearMonthDay[0];
@@ -59,6 +60,7 @@ const Detail = (props) => {
             <Separator>·</Separator>
             <Time>{writtenDate}</Time>
           </div>
+          {/* 게시물 작성 한 사람과 현재 로그인 된 유저가 같을때에만 보임*/}
           {nickname === loginUser ? (
             <div>
               <button>수정</button>
@@ -66,11 +68,9 @@ const Detail = (props) => {
             </div>
           ) : null}
         </Info>
-        <Content>
+        <div>
           <Box>
-            <div style={{ backgroundColor: "transparent", color: "#495057" }}>
-              {userId + " 님의 게시물 입니다."}
-            </div>
+            <BoxContent>{userId + " 님의 게시물 입니다."}</BoxContent>
             <RiBookmarkFill
               style={{
                 width: "35px",
@@ -83,59 +83,36 @@ const Detail = (props) => {
               }}
             />
             <BoxFooter>
-              <div style={{ backgroundColor: "transparent", color: "#495057" }}>
-                <select
-                  style={{
-                    border: "none",
-                    marginRight: "5px",
-                    backgroundColor: "transparent",
-                    color: "#adb5bd",
-                  }}
-                ></select>
+              <BoxFooterLeft>
+                <Select></Select>
                 목록 보기
-              </div>
-              <BoxFooterRight style={{ backgroundColor: "transparent" }}>
+              </BoxFooterLeft>
+              <BoxFooterRight>
                 <div
                   style={{
                     backgroundColor: "transparent",
-                    // marginBottom: "70px",
                     paddingBottom: "90px",
                   }}
                 >
                   1/1
                 </div>
-                <div
-                  style={{
-                    color: "#adb5bd",
-                    backgroundColor: "transparent",
-                    marginLeft: "10px",
-                    fontSize: "20px",
-                  }}
-                >
+                <Forward>
                   <IoIosArrowDropleftCircle />
-                </div>
-                <div
-                  style={{
-                    color: "#adb5bd",
-                    backgroundColor: "transparent",
-                    marginLeft: "3px",
-                    fontSize: "20px",
-                  }}
-                >
+                </Forward>
+                <Backward>
                   <IoIosArrowDroprightCircle />
-                </div>
+                </Backward>
               </BoxFooterRight>
             </BoxFooter>
           </Box>
           <div>
             <Viewer initialValue={content} height="1000px" />
-            {/* <div dangerouslySetInnerHTML={{ __html: content }}></div> */}
           </div>
           <Writer>
             <Image src={"/img/profile.png"} />
-            {/* <div>{nickname}</div> */}
+            <div>{nickname}</div>
           </Writer>
-        </Content>
+        </div>
         <Hr></Hr>
       </DetailBox>
       <CommentWrite />
@@ -163,23 +140,46 @@ const Box = styled.div`
     Tahoma, Geneva, sans-serif;
   font-weight: bold;
 `;
-
-const BoxFooter = styled.div`
-  font-weight: normal;
-  font-size: 16px;
-  height: 23.99px;
+const BoxContent = styled.div`
   background-color: transparent;
+  color: #495057;
+`;
+const BoxFooter = styled.div`
   display: flex;
   justify-content: space-between;
+  height: 23.99px;
+  font-weight: normal;
+  font-size: 16px;
+  background-color: transparent;
 `;
-
-const BoxFooterRight = styled.div`
+const BoxFooterLeft = styled.div`
+  background-color: transparent;
+  color: #495057;
+`;
+const Select = styled.select`
+  border: none;
+  margin-right: 5px;
+  background-color: transparent;
   color: #adb5bd;
+`;
+const BoxFooterRight = styled.div`
   display: flex;
+  color: #adb5bd;
   font-size: 14px;
   background-color: transparent;
 `;
-
+const Forward = styled.div`
+  color: #adb5bd;
+  background-color: transparent;
+  margin-left: 10px;
+  font-size: 20px;
+`;
+const Backward = styled.div`
+  color: #adb5bd;
+  background-color: transparent;
+  margin-left: 10px;
+  font-size: 20px;
+`;
 const DetailBox = styled.div`
   box-sizing: border-box;
   max-width: 768px;
@@ -233,20 +233,6 @@ const Separator = styled.span`
 const Time = styled.span`
   font-size: 0.875rem;
   color: #495057;
-`;
-const Content = styled.div`
-  /* div {
-    display: flex;
-    font-size: 1.5rem;
-    line-height: 1.5;
-    font-weight: bold;
-    color: rgb(33, 37, 41);
-    p {
-      font-size: 1.125rem;
-      color: rgb(34, 36, 38);
-      font-weight: 400;
-    }
-  } */
 `;
 const Writer = styled.div`
   margin: 32px 0px;

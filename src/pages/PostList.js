@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { history } from "../redux/configureStore";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Card from "../components/Card";
-import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+
+// React Icons
 import { ImClock } from "react-icons/im";
 import { BsGraphUp } from "react-icons/bs";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChartLine } from "@fortawesome/free-solid-svg-icons";
-// import { faClock } from "@fortawesome/free-solid-svg-icons";
-// import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const PostList = () => {
   const dispatch = useDispatch();
@@ -24,6 +20,7 @@ const PostList = () => {
   return (
     <>
       <Wrapper>
+        {/* 상단에 있는 트렌딩, 최신 버튼 */}
         <Button
           style={{ color: "#343a40" }}
           onClick={() => window.alert("힝 속았지~ 😎")}

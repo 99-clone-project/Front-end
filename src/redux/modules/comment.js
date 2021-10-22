@@ -2,9 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../utils/apis";
 
-/* import 'moment';
-import moment from 'moment'; */
-
 // actions Type
 const ADD_COMMENT = "ADD_COMMENT";
 const REMOVE_COMMENT = "REMOVE_COMMENT";
@@ -30,17 +27,14 @@ const initialState = {
 };
 
 //middleware
-
 const getCommentDB = (postId) => {
   return function (dispatch, getState, { history }) {
     apis
       .getComment(postId)
       .then((res) => {
         dispatch(getComment(res.data));
-        // console.log("응답", res.data);
       })
       .catch((e) => {
-        console.error(e);
         alert("댓글을 불러오는데 실패하였습니다.");
       });
   };
@@ -52,13 +46,8 @@ const addCommentDB = (comment) => {
       .addComment(comment)
       .then((res) => {
         dispatch(getCommentDB(comment.postId));
-        console.log(res.data);
-        // dispatch(addComment(res.data));
       })
-      .catch((e) => {
-        console.error(e);
-        // alert("댓글 등록에 실패하였습니다.");
-      });
+      .catch((e) => {});
   };
 };
 
@@ -70,7 +59,6 @@ const editCommentDB = (commentId, data) => {
         dispatch(editComment(commentId, res.data));
       })
       .catch((e) => {
-        console.error(e);
         alert("댓글 수정에 실패하였습니다.");
       });
   };
@@ -81,11 +69,9 @@ const removeCommentDB = (commentId) => {
     apis
       .removeComments(commentId)
       .then((res) => {
-        console.log("삭제완료", res);
         dispatch(removeComment(commentId));
       })
       .catch((e) => {
-        console.error(e);
         alert("댓글 삭제에 실패하였습니다.");
       });
   };
@@ -104,18 +90,6 @@ export default handleActions(
           (c) => c.commentId !== action.payload.commentId
         );
       }),
-
-    // [EDIT_COMMENT]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     let idx = draft.commentList.findIndex(
-    //       (e) => e.id === action.payload.commentId
-    //     );
-    //     console.log(action.payload.comment);
-
-    //     draft.commentList[idx] = {
-    //       ...action.payload.comment,
-    //     };
-    //   }),
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.commentList = action.payload.commentList;
