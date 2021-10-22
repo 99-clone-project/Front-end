@@ -11,6 +11,9 @@ const CommentItem = (props) => {
   const dispatch = useDispatch();
 
   // 댓글유저ID
+  const userEmail = useSelector(
+    (state) => state.comment.commentList[props.index].user.email
+  );
   const userId = useSelector(
     (state) => state.comment.commentList[props.index].user.email.split("@")[0]
   );
@@ -25,8 +28,9 @@ const CommentItem = (props) => {
   const day = yearMonthDay[2];
   const writtenDate = year + "년 " + month + "월 " + day + "일";
 
-  // const rawLoginUser = localStorage.getItem("nickname");
-  // const loginUser = rawLoginUser.split('"')[1];
+  const loginUser = useSelector((state) => state.user.user.sub);
+
+  console.log("찾는중", userEmail);
 
   React.useEffect(() => {
     dispatch(commentAction.getCommentDB(postId));
@@ -48,6 +52,35 @@ const CommentItem = (props) => {
     // dispatch(commentAction.editCommentDB(comment));
   };
 
+  if (userEmail === loginUser) {
+    return (
+      <React.Fragment>
+        <Container>
+          <User>
+            <UserInfo>
+              <img src={"/img/profile.png"} />
+              <div style={{ margin: "auto" }}>
+                <UserName>{userId}</UserName>
+                <Time>{writtenDate}</Time>
+              </div>
+            </UserInfo>
+            <Edit>
+              <span onClick={handleModify}>수정</span>
+              <span onClick={handleDelete}>삭제</span>
+            </Edit>
+          </User>
+          <Content>{content}</Content>
+          <PlusComment>
+            <span>
+              <i className="xi-plus-square-o"></i>
+            </span>
+            <span>답글 달기</span>
+          </PlusComment>
+        </Container>
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <Container>
@@ -59,10 +92,6 @@ const CommentItem = (props) => {
               <Time>{writtenDate}</Time>
             </div>
           </UserInfo>
-          <Edit>
-            <span onClick={handleModify}>수정</span>
-            <span onClick={handleDelete}>삭제</span>
-          </Edit>
         </User>
         <Content>{content}</Content>
         <PlusComment>
