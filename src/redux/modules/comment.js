@@ -57,7 +57,7 @@ const addCommentDB = (comment) => {
       })
       .catch((e) => {
         console.error(e);
-        alert("댓글 등록에 실패하였습니다.");
+        // alert("댓글 등록에 실패하였습니다.");
       });
   };
 };
