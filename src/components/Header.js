@@ -108,7 +108,6 @@ const FontBox = styled.div`
 
 const Font = styled.text`
   // padding: 10px;
-  // background-color: orange;
   font-size: 24px;
   font-family: "firaMono-Medium";
   color: rgb(52, 58, 64);
