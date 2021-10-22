@@ -1,28 +1,27 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import { Grid, Text, Input } from "../elements"
-import { useDispatch } from "react-redux"
-import { actionCreators as userActions } from "../redux/modules/user"
-import { mailRegCheck } from "../utils/validation"
-
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Grid, Text, Input } from "../elements";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { mailRegCheck } from "../utils/validation";
 
 const SignUp = (props) => {
   // 액션을 실행해줄 dispatch 훅을 선언한다.
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  // useState로 
-  const [ email, setEmail] = React.useState("")
-  const [ pw, setPw] = React.useState("")
-  const [ pwcheck, setPwCheck] = React.useState("")
-  const [ nickname, setNickName] = React.useState("")
+  // useState로
+  const [email, setEmail] = React.useState("");
+  const [pw, setPw] = React.useState("");
+  const [pwcheck, setPwCheck] = React.useState("");
+  const [nickname, setNickName] = React.useState("");
 
   const setSignup = () => {
     const user = {
       email: email,
       pw: pw,
       pwcheck: pwcheck,
-      nickname: nickname
-    }
+      nickname: nickname,
+    };
     // 아이디와 패스워드, 유저 닉네임이 있는 지 확인!
     // 미들웨어에서 처리해도 괜찮지만, 딱봐도 어림없는 값(공백 등등)이 굳이 미들웨어까지 갈 필요 없으니 여기에서 막아줄거예요.
     if (email === "" || pw === "" || pwcheck === "" || nickname === "") {
@@ -47,54 +46,58 @@ const SignUp = (props) => {
       alert("사용하실 닉네임을 입력해주세요!");
       return;
     }
-    
-    dispatch(userActions.signupMiddleware(user))
-  }
 
-  return(
+    dispatch(userActions.signupMiddleware(user));
+  };
+
+  return (
     <Grid>
       <UserBox>
-        <Text bold size="28px">회원가입</Text>
-        <Input 
-        label="이메일" 
-        placeholder="이메일을 입력하세요" 
-        _onChange={(e)=>{
-          setEmail(e.target.value)
-        }}
+        <Text bold size="28px">
+          회원가입
+        </Text>
+        <Input
+          label="이메일"
+          placeholder="이메일을 입력하세요"
+          _onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         ></Input>
-        <Input 
-        label="비밀번호" 
-        placeholder="비밀번호는 4자리 이상입니다" 
-        type="password"
-        _onChange={(e)=>{
-          setPw(e.target.value)
-        }}
+        <Input
+          label="비밀번호"
+          placeholder="비밀번호는 4자리 이상입니다"
+          type="password"
+          _onChange={(e) => {
+            setPw(e.target.value);
+          }}
         ></Input>
-        <Input 
-        label="비밀번호 확인" 
-        placeholder="비밀번호를 다시 입력해주세요" 
-        type="password"
-        _onChange={(e)=>{
-          setPwCheck(e.target.value)
-        }}
+        <Input
+          label="비밀번호 확인"
+          placeholder="비밀번호를 다시 입력해주세요"
+          type="password"
+          _onChange={(e) => {
+            setPwCheck(e.target.value);
+          }}
         ></Input>
-        <Input 
-        label="닉네임" 
-        placeholder="닉네임을 입력하세요"
-        _onChange={(e)=>{
-          setNickName(e.target.value)
-        }}
+        <Input
+          label="닉네임"
+          placeholder="닉네임을 입력하세요"
+          _onChange={(e) => {
+            setNickName(e.target.value);
+          }}
         ></Input>
         <Btn
-        onClick={() => {
-          console.log("회원가입!!");
-          setSignup();
-        }}
-        >회원가입</Btn>
+          onClick={() => {
+            console.log("회원가입!!");
+            setSignup();
+          }}
+        >
+          회원가입
+        </Btn>
       </UserBox>
     </Grid>
-  )
-}
+  );
+};
 
 const UserBox = styled.div`
   margin: auto;
@@ -104,14 +107,18 @@ const UserBox = styled.div`
   height: auto;
 `;
 
-const Btn= styled.button`
- margin: 10px 10px 0px 0px;
- font-size: 14px;
- background-color: #343A40;
- color: white;
- padding: 10px 15px;
- font-weight: bold;
- border-radius: 25px;
- border: none;
+const Btn = styled.button`
+  margin: 10px 10px 0px 0px;
+  font-size: 16px;
+  background-color: #4cbc9b;
+  color: white;
+  padding: 10px 15px;
+  font-weight: bold;
+  width: 95.99px;
+  height: 47.99px;
+  border: none;
+  position: absolute;
+  right: 36px;
+  border: none;
 `;
-export default SignUp
+export default SignUp;

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Grid, Text, Input } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,8 +8,8 @@ import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 
-import Modal from './Modal'
-import Card from "../components/Card"
+import Modal from "./Modal";
+import Card from "../components/Card";
 import { fontFamily } from "@mui/system";
 
 import { BsSearch } from "react-icons/bs";
@@ -28,15 +28,16 @@ const Header = (props) => {
     }
   };
 
-  const [modalOpen, setModalOpen] = useState(false)
-    const modalClose = () => {
-        setModalOpen(!modalOpen)
-    }
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalClose = () => {
+    setModalOpen(!modalOpen);
+  };
 
   if (user) {
     const rawLoginUser = localStorage.getItem("nickname");
     const loginUser = rawLoginUser.split('"')[1];
     const initial = loginUser.charAt(0).toUpperCase();
+
     return (
       <Grid is_flex height="63.99px" width="97%">
         <FontBox
@@ -75,7 +76,7 @@ const Header = (props) => {
               border: "none",
             }}
           >
-             { <div>{initial}</div>  }
+            <div style={{ backgroundColor: "transparent" }}>{initial}</div>
           </button>
         </div>
       </Grid>
@@ -91,11 +92,15 @@ const Header = (props) => {
         <Font>velog</Font>
       </FontBox>
       <div>
-        <Btn onClick={() => {
-          modalClose() 
-        }}>로그인</Btn>
-        { modalOpen && <Modal modalClose={modalClose}></Modal>}
-         {/* <Btn onClick={toSignup}>회원가입</Btn> */}
+        <Btn
+          onClick={() => {
+            modalClose();
+          }}
+        >
+          로그인
+        </Btn>
+        {modalOpen && <Modal modalClose={modalClose}></Modal>}
+        {/* <Btn onClick={toSignup}>회원가입</Btn> */}
       </div>
     </Grid>
   );

@@ -84,8 +84,6 @@ const Detail = (props) => {
     }
   };
   if (user) {
-
-    
     return (
       <>
       <Grid is_flex height="63.99px" width="97%">
