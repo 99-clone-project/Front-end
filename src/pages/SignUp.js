@@ -28,16 +28,22 @@ const SignUp = (props) => {
       window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
       return;
     }
-
-    // id가 이메일 형식이 맞나 확인!
+    // id가 이메일 형식 확인
     if (!mailRegCheck(email)) {
       window.alert("이메일 형식이 맞지 않습니다!");
       return;
     }
-
+    if (!pw || pw.length < 4) {
+      alert("비밀번호 입력란을 다시 확인해주세요! 비밀번호는 4자리 이상입니다");
+      return;
+    }
     // 비밀번호와 비밀번호 확인 부분이 일치하나 확인!
     if (pw !== pwcheck) {
       window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
+      return;
+    }
+    if (!nickname) {
+      alert("사용하실 닉네임을 입력해주세요!");
       return;
     }
 
@@ -47,7 +53,7 @@ const SignUp = (props) => {
   return (
     <Grid>
       <UserBox>
-        <Text bold size="32px">
+        <Text bold size="28px">
           회원가입
         </Text>
         <Input
@@ -59,7 +65,7 @@ const SignUp = (props) => {
         ></Input>
         <Input
           label="비밀번호"
-          placeholder="비밀번호을 입력하세요"
+          placeholder="비밀번호는 4자리 이상입니다"
           type="password"
           _onChange={(e) => {
             setPw(e.target.value);
@@ -82,10 +88,11 @@ const SignUp = (props) => {
         ></Input>
         <Btn
           onClick={() => {
+            console.log("회원가입!!");
             setSignup();
           }}
         >
-          회원가입!
+          회원가입
         </Btn>
       </UserBox>
     </Grid>
@@ -93,22 +100,25 @@ const SignUp = (props) => {
 };
 
 const UserBox = styled.div`
-  border: 1px solid black;
   margin: auto;
   padding: 20px;
   min-width: 250px;
-  width: 80%;
-  height: 80%;
+  width: auto;
+  height: auto;
 `;
 
 const Btn = styled.button`
   margin: 10px 10px 0px 0px;
-  font-size: 14px;
-  background-color: #343a40;
+  font-size: 16px;
+  background-color: #4cbc9b;
   color: white;
   padding: 10px 15px;
   font-weight: bold;
-  border-radius: 25px;
+  width: 95.99px;
+  height: 47.99px;
+  border: none;
+  position: absolute;
+  right: 36px;
   border: none;
 `;
 export default SignUp;

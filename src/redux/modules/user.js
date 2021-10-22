@@ -22,7 +22,7 @@ const signupMiddleware = (user) => {
     apis
       .signUp(user)
       .then((res) => {
-        window.location.href = "/login";
+        window.alert("회원가입에 성공하셨습니다!");
       })
       .catch((error) => {
         const errorResposnse = error.response;

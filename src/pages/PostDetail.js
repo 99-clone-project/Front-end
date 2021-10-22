@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import CommentWrite from "../components/CommentWrite";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { history } from "../redux/configureStore";
 
 // 마크다운 뷰어 토스트ui 라이브러리 사용
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
@@ -12,10 +13,14 @@ import { Viewer } from "@toast-ui/react-editor";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { RiBookmarkFill } from "react-icons/ri";
+import { apis } from "../utils/apis";
+import { actionCreators as userActions } from "../redux/modules/user";
+
+import { Grid, Text, Input } from "../elements";
+import Header from "../components/Header";
+import { BsSearch } from "react-icons/bs";
 
 const Detail = (props) => {
-  // const [like, setLike]=React.useState(0)
-
   const dispatch = useDispatch();
 
   // 지금 보고있는 게시물의 postId, title, content
@@ -35,6 +40,7 @@ const Detail = (props) => {
   // 지금 로그인 한 유저의 닉네임
   const rawLoginUser = localStorage.getItem("nickname");
   const loginUser = rawLoginUser.split('"')[1];
+  const initial = loginUser.charAt(0).toUpperCase();
 
   // 게시물 작성 날짜
   const modDate = post.regDate.split("T")[0];
@@ -48,105 +54,275 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(currentpostId));
   };
 
-  React.useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, []);
+  // 헤더 부분
+  const user = useSelector((state) => state.user.user);
 
-  return (
-    <React.Fragment>
-      <DetailBox>
-        <h1>{title}</h1>
-        <Info>
+  const tologin = () => {
+    history.push("/login");
+  };
+  const toSignup = () => {
+    history.push("/signup");
+  };
+
+  const toLogOut = async () => {
+    try {
+      await dispatch(userActions.logOut());
+      history.push("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  if (user) {
+    return (
+      <>
+        <Grid is_flex height="63.99px" width="97%">
+          <FontBox
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            <Logo src={"/img/grayFavicon.png"}></Logo>
+            <Font>{userId}.log</Font>
+          </FontBox>
           <div>
-            <UserName>{userId}</UserName>
-            <Separator>·</Separator>
-            <Time>{writtenDate}</Time>
-          </div>
-          {/* 게시물 작성 한 사람과 현재 로그인 된 유저가 같을때에만 보임*/}
-          {nickname === loginUser ? (
-            <div>
-              <button>수정</button>
-              <button onClick={deletePost}>삭제</button>
-            </div>
-          ) : null}
-        </Info>
-        <div>
-          <Like>
-            <div>
-              <svg width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z"
-                ></path>
-              </svg>
-            </div>
-            <p>100</p>
-            <div>
-              <svg width="24" height="24" viewBox="0 0 24 24" class="share">
-                <path
-                  fill="currentColor"
-                  d="M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z"
-                ></path>
-              </svg>
-            </div>
-          </Like>
-          <Box>
-            <BoxContent>{userId + " 님의 게시물 입니다."}</BoxContent>
-            <RiBookmarkFill
+            <BsSearch
               style={{
-                width: "35px",
-                height: "40px",
-                color: " rgb(18, 184, 134)",
-                position: "absolute",
-                top: "-8",
-                right: "20",
-                backgroundColor: "transparent",
+                width: "25px",
+                height: "25px",
+                marginRight: "10px",
+                marginBottom: "-7px",
               }}
             />
-            <BoxFooter>
-              <BoxFooterLeft>
-                <Select></Select>
-                목록 보기
-              </BoxFooterLeft>
-              <BoxFooterRight>
-                <div
-                  style={{
-                    backgroundColor: "transparent",
-                    paddingBottom: "90px",
-                  }}
-                >
-                  1/1
-                </div>
-                <Forward>
-                  <IoIosArrowDropleftCircle />
-                </Forward>
-                <Backward>
-                  <IoIosArrowDroprightCircle />
-                </Backward>
-              </BoxFooterRight>
-            </BoxFooter>
-          </Box>
+            <Btn
+              onClick={() => {
+                history.push("/postwrite");
+              }}
+            >
+              새 글 작성
+            </Btn>
+            <button
+              onClick={toLogOut}
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                backgroundColor: "#5f4541",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "15px",
+                border: "none",
+              }}
+            >
+              <div style={{ backgroundColor: "transparent" }}>{initial}</div>
+            </button>
+          </div>
+        </Grid>
+        <DetailBox>
+          <h1>{title}</h1>
+          <Info>
+            <div>
+              <UserName>{userId}</UserName>
+              <Separator>·</Separator>
+              <Time>{writtenDate}</Time>
+            </div>
+            {/* 게시물 작성 한 사람과 현재 로그인 된 유저가 같을때에만 보임*/}
+            {nickname == loginUser ? (
+              <div>
+                <button>수정</button>
+                <button onClick={deletePost}>삭제</button>
+              </div>
+            ) : null}
+          </Info>
 
           <div>
-            <Viewer initialValue={content} height="1000px" />
+            <Like>
+              <div>
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z"
+                  ></path>
+                </svg>
+              </div>
+              <p>100</p>
+              <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" class="share">
+                  <path
+                    fill="currentColor"
+                    d="M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z"
+                  ></path>
+                </svg>
+              </div>
+            </Like>
+            <Box>
+              <BoxContent>{userId + " 님의 게시물 입니다."}</BoxContent>
+              <RiBookmarkFill
+                style={{
+                  width: "35px",
+                  height: "40px",
+                  color: " rgb(18, 184, 134)",
+                  position: "absolute",
+                  top: "-8",
+                  right: "20",
+                  backgroundColor: "transparent",
+                }}
+              />
+              <BoxFooter>
+                <BoxFooterLeft>
+                  <Select></Select>
+                  목록 보기
+                </BoxFooterLeft>
+                <BoxFooterRight>
+                  <div
+                    style={{
+                      backgroundColor: "transparent",
+                      paddingBottom: "90px",
+                    }}
+                  >
+                    1/1
+                  </div>
+                  <Forward>
+                    <IoIosArrowDropleftCircle />
+                  </Forward>
+                  <Backward>
+                    <IoIosArrowDroprightCircle />
+                  </Backward>
+                </BoxFooterRight>
+              </BoxFooter>
+            </Box>
           </div>
-          <Writer>
-            <Image src={"/img/profile.png"} />
-            <div>{nickname}</div>
-          </Writer>
-        </div>
-        <Hr></Hr>
-      </DetailBox>
-      <CommentWrite />
-    </React.Fragment>
+
+          <Content>
+            <div>
+              <Viewer initialValue={content} height="1000px" />
+            </div>
+            <Writer>
+              <Image src={"/img/profile.png"} />
+              <div>{nickname}</div>
+            </Writer>
+          </Content>
+          <Hr></Hr>
+        </DetailBox>
+        <CommentWrite />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <React.Fragment>
+        <Grid is_flex height="4rem" width="90%">
+          <FontBox
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            {" "}
+            <div>
+              <Logo src={"/img/grayFavicon.png"}></Logo>
+              <Font>{userId}.log</Font>
+            </div>
+          </FontBox>
+          <div>
+            <Btn onClick={tologin}>로그인</Btn>
+            <Btn onClick={toSignup}>회원가입</Btn>
+          </div>
+        </Grid>
+        <DetailBox>
+          <h1>{title}</h1>
+          <Info>
+            <div>
+              <UserName>{userId}</UserName>
+              <Separator>·</Separator>
+              <Time>{writtenDate}</Time>
+            </div>
+            {nickname == loginUser ? (
+              <div>
+                <button>수정</button>
+                <button onClick={deletePost}>삭제</button>
+              </div>
+            ) : null}
+          </Info>
+
+          <div>
+            <Like>
+              <div>
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z"
+                  ></path>
+                </svg>
+              </div>
+              <p>100</p>
+              <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" class="share">
+                  <path
+                    fill="currentColor"
+                    d="M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z"
+                  ></path>
+                </svg>
+              </div>
+            </Like>
+            <Box>
+              <BoxContent>{userId + " 님의 게시물 입니다."}</BoxContent>
+              <RiBookmarkFill
+                style={{
+                  width: "35px",
+                  height: "40px",
+                  color: " rgb(18, 184, 134)",
+                  position: "absolute",
+                  top: "-8",
+                  right: "20",
+                  backgroundColor: "transparent",
+                }}
+              />
+              <BoxFooter>
+                <BoxFooterLeft>
+                  <Select></Select>
+                  목록 보기
+                </BoxFooterLeft>
+                <BoxFooterRight>
+                  <div
+                    style={{
+                      backgroundColor: "transparent",
+                      paddingBottom: "90px",
+                    }}
+                  >
+                    1/1
+                  </div>
+                  <Forward>
+                    <IoIosArrowDropleftCircle />
+                  </Forward>
+                  <Backward>
+                    <IoIosArrowDroprightCircle />
+                  </Backward>
+                </BoxFooterRight>
+              </BoxFooter>
+            </Box>
+            <div>
+              <Viewer initialValue={content} height="1000px" />
+            </div>
+            <Writer>
+              <Image src={"/img/profile.png"} />
+              <div>{nickname}</div>
+            </Writer>
+          </div>
+          <Hr></Hr>
+        </DetailBox>
+        <CommentWrite />
+      </React.Fragment>
+    </>
   );
 };
+
+const Content = styled.div``;
 
 const Like = styled.div`
   position: fixed;
   top: 112px;
-  left:20px
-  /* padding-left: 20px; */
+  left: 450px;
   width: 4rem;
   background: rgb(248, 249, 250);
   border: 1px solid rgb(241, 243, 245);
@@ -179,8 +355,8 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  width: 688.007px;
+  border-radius: 5px;
+  width: 720.007px;
   height: 100.861px;
   margin: 40px 0;
   padding: 32px 24px 10px 24px;
@@ -234,6 +410,14 @@ const Backward = styled.div`
   margin-left: 10px;
   font-size: 20px;
 `;
+const Logo = styled.img`
+  position: relative;
+  width: 28px;
+  height: 28px;
+  margin: 0px 10px 0px 0px;
+  top: 3px;
+`;
+
 const DetailBox = styled.div`
   box-sizing: border-box;
   max-width: 768px;
@@ -304,4 +488,35 @@ const Hr = styled.div`
   margin-top: 2rem;
   margin-bottom: 1.5rem;
 `;
+const FontBox = styled.div`
+  padding: 10px;
+  cursor: pointer;
+`;
+const Font = styled.text`
+  // padding: 10px;
+  // background-color: orange;
+  font-size: 24px;
+  font-family: "firaMono-Medium";
+  color: rgb(52, 58, 64);
+  // display: inline-block;
+  // margin-left: 15px;
+`;
+const Btn = styled.button`
+  cursor: pointer;
+  margin: 15px 10px 15px 0px;
+  font-size: 14px;
+  background-color: white;
+  /* background-color: #343a40; */
+  color: #343a40;
+  font-size: 17px;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: 25px;
+  border: 1px solid #343a40;
+  &:hover {
+    background-color: #868e96;
+    transition: 0.125s;
+  }
+`;
+
 export default Detail;
