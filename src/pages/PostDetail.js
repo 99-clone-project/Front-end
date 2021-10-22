@@ -21,8 +21,6 @@ import Header from "../components/Header";
 import { BsSearch } from "react-icons/bs";
 
 const Detail = (props) => {
-  // const [like, setLike]=React.useState(0)
-
   const dispatch = useDispatch();
 
   // 지금 보고있는 게시물의 postId, title, content
