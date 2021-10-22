@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Grid, Text, Input } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,19 +8,23 @@ import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 
+import Modal from "./Modal";
 import Card from "../components/Card";
-import { fontFamily, fontSize } from "@mui/system";
+import { fontFamily } from "@mui/system";
+
 import { BsSearch } from "react-icons/bs";
 
 const Header = (props) => {
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
+  // const initial = loginUser.charAt(0).toUpperCase();
+  // console.log(initial);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
-  React.useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, []);
-
-  const postList = useSelector((state) => state.post.list);
+  // React.useEffect(() => {
+  //   dispatch(postActions.getPostMD());
+  // }, []);
 
   const tologin = () => {
     history.push("/login");
@@ -38,9 +42,14 @@ const Header = (props) => {
     }
   };
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalClose = () => {
+    setModalOpen(!modalOpen);
+  };
+
   if (user) {
     return (
-      <Grid is_flex height="63.99px" width="90%">
+      <Grid is_flex height="63.99px" width="97%">
         <FontBox
           onClick={() => {
             history.push("/");
@@ -59,12 +68,11 @@ const Header = (props) => {
           />
           <Btn
             onClick={() => {
-              history.push("postwrite");
+              history.push("/postwrite");
             }}
           >
             새 글 작성
           </Btn>
-
           <button
             onClick={toLogOut}
             style={{
@@ -78,7 +86,7 @@ const Header = (props) => {
               border: "none",
             }}
           >
-            {/* <div>{initial}</div> */}
+            {/* <div>{initial}</div>  */}
           </button>
         </div>
       </Grid>
@@ -94,8 +102,15 @@ const Header = (props) => {
         <Font>velog</Font>
       </FontBox>
       <div>
-        <Btn onClick={tologin}>로그인</Btn>
-        <Btn onClick={toSignup}>회원가입</Btn>
+        <Btn
+          onClick={() => {
+            modalClose();
+          }}
+        >
+          로그인
+        </Btn>
+        {modalOpen && <Modal modalClose={modalClose}></Modal>}
+        {/* <Btn onClick={toSignup}>회원가입</Btn> */}
       </div>
     </Grid>
   );
@@ -105,7 +120,6 @@ const FontBox = styled.div`
   padding: 10px;
   cursor: pointer;
 `;
-
 const Font = styled.text`
   // padding: 10px;
   // background-color: orange;
@@ -115,7 +129,6 @@ const Font = styled.text`
   // display: inline-block;
   // margin-left: 15px;
 `;
-
 const Btn = styled.button`
   cursor: pointer;
   margin: 15px 10px 15px 0px;

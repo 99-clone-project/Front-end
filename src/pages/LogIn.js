@@ -33,7 +33,7 @@ const Login = (props) => {
   return (
     <Grid>
       <UserBox>
-        <Text bold size="32px">
+        <Text bold size="26px">
           로그인
         </Text>
         <Input
@@ -63,13 +63,13 @@ const Login = (props) => {
     </Grid>
   );
 };
+
 const UserBox = styled.div`
-  border: 1px solid black;
   margin: auto;
   padding: 20px;
   min-width: 250px;
-  width: 80%;
-  height: 80%;
+  width: auto;
+  height: auto;
 `;
 
 const Btn = styled.button`

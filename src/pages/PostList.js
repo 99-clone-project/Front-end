@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Card from "../components/Card";
 import { actionCreators as postActions } from "../redux/modules/post";
+import Header from "../components/Header";
 
 // React Icons
 import { ImClock } from "react-icons/im";
@@ -19,6 +20,7 @@ const PostList = () => {
 
   return (
     <>
+      <Header />
       <Wrapper>
         {/* 상단에 있는 트렌딩, 최신 버튼 */}
         <Button
