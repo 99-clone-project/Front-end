@@ -35,13 +35,18 @@ const CommentWrite = (props) => {
     // }
     dispatch(commentAction.addCommentDB(comment));
     dispatch(commentAction.getCommentDB(postId));
+    setContent("");
   };
 
   return (
     <React.Fragment>
       <Count>{commentList?.length}개의 댓글</Count>
       <Container>
-        <Input placeholder="댓글을 작성하세요" onChange={onChange} />
+        <Input
+          placeholder="댓글을 작성하세요"
+          onChange={onChange}
+          value={content}
+        />
         <Button
           onClick={() => {
             setAddComment();
