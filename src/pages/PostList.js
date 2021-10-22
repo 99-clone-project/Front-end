@@ -24,7 +24,10 @@ const PostList = () => {
   return (
     <>
       <Wrapper>
-        <Button style={{ color: "#343a40" }}>
+        <Button
+          style={{ color: "#343a40" }}
+          onClick={() => window.alert("힝 속았지~ 😎")}
+        >
           <div
             style={{
               marginRight: "10px",
@@ -36,7 +39,6 @@ const PostList = () => {
               height: "20px",
               marginRight: "10px",
             }}
-            onClick={() => window.alert("힝 속았지~ 😎")}
           />
           트렌딩
         </Button>
@@ -118,7 +120,6 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
-  background-color: #f9f9f9;
   margin-top: 1.5rem;
 `;
 
@@ -134,7 +135,7 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9f9f9;
+
   ${(props) =>
     props.is_url
       ? `
