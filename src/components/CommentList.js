@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 const CommentList = (props) => {
   const commentList = useSelector((state) => state.comment.commentList);
+
   return (
     <React.Fragment>
       {commentList.map((item, index) => {

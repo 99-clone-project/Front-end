@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { history } from "../redux/configureStore";
-
 import styled from "styled-components";
 import Card from "../components/Card";
-// import Grid from "../elements/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { ImClock } from "react-icons/im";
@@ -18,7 +16,6 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 const PostList = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
-  // console.log(postList);
 
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
@@ -39,6 +36,7 @@ const PostList = () => {
               height: "20px",
               marginRight: "10px",
             }}
+            onClick={() => window.alert("힝 속았지~ 😎")}
           />
           트렌딩
         </Button>
@@ -84,6 +82,7 @@ const PostList = () => {
         </select>
         <HamDIv>
           <BiDotsVerticalRounded
+            onClick={() => window.alert("힝 속았지~ 😎")}
             style={{
               width: "25px",
               height: "25px",
@@ -113,7 +112,7 @@ const PostList = () => {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   height: 60px;
   box-sizing: border-box;
