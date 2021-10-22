@@ -6,6 +6,16 @@ import Card from "../components/Card";
 // import Grid from "../elements/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { ImClock } from "react-icons/im";
+import { BsGraphUp } from "react-icons/bs";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+
+import Header from "../components/Header";
+
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+// import { faClock } from "@fortawesome/free-solid-svg-icons";
+// import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const PostList = () => {
   const dispatch = useDispatch();
@@ -18,6 +28,75 @@ const PostList = () => {
 
   return (
     <>
+      <Header />
+      <Wrapper>
+        <Button style={{ color: "#343a40" }}>
+          <div
+            style={{
+              marginRight: "10px",
+            }}
+          />
+          <BsGraphUp
+            style={{
+              width: "20px",
+              height: "20px",
+              marginRight: "10px",
+            }}
+          />
+          트렌딩
+        </Button>
+        <Button style={{ color: "#343a40" }}>
+          <div
+            style={{
+              marginRight: "10px",
+            }}
+          />
+          <span
+            style={{
+              borderBottom: "2px solid black",
+              width: "70px",
+              padding: "5px",
+            }}
+          >
+            <ImClock
+              style={{
+                width: "20px",
+                height: "20px",
+                marginBottom: "-5px",
+                marginRight: "7px",
+              }}
+            />
+            최신
+          </span>
+        </Button>
+        <select
+          style={{
+            width: "95.99px",
+            height: "32px",
+            border: "1px solid #e5e5e5",
+            marginLeft: "10px",
+            padding: "0 5px",
+          }}
+        >
+          <option value="오늘">오늘</option>
+          <option selected value="이번 주">
+            이번 주
+          </option>
+          <option value="이번 달">이번 달</option>
+          <option value="올해">올해</option>
+        </select>
+        <HamDIv>
+          <BiDotsVerticalRounded
+            style={{
+              width: "25px",
+              height: "25px",
+              marginBottom: "-5px",
+              marginRight: "7px",
+              cursor: "pointer",
+            }}
+          />
+        </HamDIv>
+      </Wrapper>
       <div
         style={{
           display: "flex",
@@ -25,7 +104,6 @@ const PostList = () => {
           justifyContent: "center",
         }}
       >
-      
         <Grid>
           {postList.map((post, index) => {
             return <Card post={post} index={index} key={index} />;
@@ -36,13 +114,70 @@ const PostList = () => {
   );
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  height: 60px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  margin-top: 1.5rem;
+`;
+
+const Button = styled.button`
+  font-size: 18px;
+  background-color: white;
+  font-weight: 600;
+  border: none;
+  height: 48px;
+  width: 120px;
+  min-height: auto;
+  min-width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  ${(props) =>
+    props.is_url
+      ? `
+  color: black;
+  border-bottom: 2px solid black;
+  `
+      : `
+  color: gray;
+        `}
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const HamDIv = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15px;
+  color: gray;
+`;
+
 const Grid = styled.div`
   /* width: 1055.97px; */
   margin: auto;
   display: grid;
-  grid-template-columns: 320px 320px 320px 320px;
+  grid-template-columns: 320px 320px 320px 320px 320px;
   /* grid-template-rows: 331.08px 331.08px 331.08px; */
-  gap: 30px;
+  gap: 2rem;
+  @media screen and (max-width: 1800px) {
+    grid-template-columns: 320px 320px 320px 320px;
+  }
+  @media screen and (max-width: 1430px) {
+    grid-template-columns: 320px 320px 320px;
+  }
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: 320px 320px;
+  }
 `;
 
 export default PostList;

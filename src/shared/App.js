@@ -37,7 +37,6 @@ function App() {
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-        <Header />
         <Switch>
           <Route path="/" exact component={PostList} />
           <Route path="/signup" exact component={SignUp} />

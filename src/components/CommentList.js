@@ -6,8 +6,8 @@ const CommentList = (props) => {
   const commentList = useSelector((state) => state.comment.commentList);
   return (
     <React.Fragment>
-      {commentList.map((item) => {
-        return <CommentItem {...item} />;
+      {commentList.map((item, index) => {
+        return <CommentItem {...item} index={index} />;
       })}
     </React.Fragment>
   );

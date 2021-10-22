@@ -12,14 +12,21 @@ import Modal from './Modal'
 import Card from "../components/Card"
 import { fontFamily } from "@mui/system";
 
+import { BsSearch } from "react-icons/bs";
+
 const Header = (props) => {
+
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
+  // const initial = loginUser.charAt(0).toUpperCase();
+  // console.log(initial);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   // console.log(user);
 
-  React.useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(postActions.getPostMD());
+  // }, []);
   
   const tologin = () => {
     history.push("/login");
@@ -44,35 +51,65 @@ const Header = (props) => {
 
   if (user) {
     return (
-      <Grid is_flex>
+      <Grid is_flex height="63.99px" width="97%">
         <FontBox
-        onClick={()=>{
-          history.push("/")
-        }}>
-         <Font>velog</Font>
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          <Font>velog</Font>
         </FontBox>
-        <button onClick={modalClose}>Click</button>
-        { modalOpen && <Modal modalClose={modalClose}></Modal>}
         <div>
-          <Btn onClick={() => {
-            history.push("postwrite")
-          }}>작성하기</Btn>
-          <Btn onClick={toLogOut}>로그아웃</Btn>
+          <BsSearch
+            style={{
+              width: "25px",
+              height: "25px",
+              marginRight: "10px",
+              marginBottom: "-7px",
+            }}
+          />
+          <Btn
+            onClick={() => {
+              history.push("/postwrite");
+            }}
+          >
+            새 글 작성
+          </Btn>
+          <button
+            onClick={toLogOut}
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              backgroundColor: "#5f4541",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "15px",
+              border: "none",
+            }}
+          >
+             {/* <div>{initial}</div>  */}
+          </button>
         </div>
       </Grid>
     );
   }
   return (
-    <Grid is_flex>
+    <Grid is_flex height="4rem" width="90%">
       <FontBox
-        onClick={()=>{
-          history.push("/")
-        }}>
-         <Font>velog</Font>
-        </FontBox>
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        <Font>velog</Font>
+        
+      </FontBox>
       <div>
-        <Btn onClick={tologin}>로그인</Btn>
-        <Btn onClick={toSignup}>회원가입</Btn>
+        <Btn onClick={() => {
+          modalClose() 
+        }}>로그인</Btn>
+        { modalOpen && <Modal modalClose={modalClose}></Modal>}
+        {/* <Btn onClick={toSignup}>회원가입</Btn> */}
       </div>
     </Grid>
   );
@@ -80,33 +117,34 @@ const Header = (props) => {
 
 const FontBox = styled.div`
   padding: 10px;
-  margin-left: 15px;
   cursor: pointer;
 `;
-
 const Font = styled.text`
- // padding: 10px;
- // background-color: orange;
-  font-size: 20px;
+  // padding: 10px;
+  // background-color: orange;
+  font-size: 24px;
   font-family: "firaMono-Medium";
   color: rgb(52, 58, 64);
- // display: inline-block;
- // margin-left: 15px;
+  // display: inline-block;
+  // margin-left: 15px;
 `;
-
 const Btn = styled.button`
   cursor: pointer;
   margin: 15px 10px 15px 0px;
   font-size: 14px;
-  background-color: #343a40;
-  color: white;
+  background-color: white;
+
+  /* background-color: #343a40; */
+  color: #343a40;
+  font-size: 17px;
   padding: 10px 15px;
   font-weight: bold;
   border-radius: 25px;
-  border: none;
+  border: 1px solid #343a40;
+
   &:hover {
     background-color: #868e96;
-    transition: .125s;
+    transition: 0.125s;
   }
 `;
 

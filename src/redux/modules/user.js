@@ -23,7 +23,7 @@ const signupMiddleware = (user) => {
       .signUp(user)
       .then((res) => {
         // console.log(res.data);
-        window.location.href = "/login";
+        window.alert("회원가입에 성공하셨습니다!")
       })
       .catch((error) => {
         const errorResposnse = error.response;

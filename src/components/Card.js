@@ -5,8 +5,12 @@ import styled from "styled-components";
 import profile from "../assets/profile.png";
 // import PostList from "../pages/PostList";
 import { history } from "../redux/configureStore";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch } from "react-redux";
 
 const Card = (props) => {
+  const dispatch = useDispatch();
+
   const postList = useSelector((state) => state.post.list);
   // console.log("스테이트.포스트.리스트", postList);
   // console.log("postList", postList);
@@ -26,9 +30,37 @@ const Card = (props) => {
   // const postUser = props.post.user.nickname;
   // console.log(postList[props.index]);
   // console.log(postList[props.index].content);
-  function regExp() {
-    let str = postList[props.index].content;
-  }
+
+  // function regExp() {
+  //   let str = postList[props.index].content;
+  //   // return content;
+  // }
+
+  const content = postList[props.index].content.split("![")[0];
+  // console.log(content.replaceAll("#", ""));
+  const hashContent = content.replaceAll("#", "");
+  const starContent = hashContent.replaceAll("*", "");
+
+  // const hello = postList[props.index].image;
+  // const image = hello.replaceAll(")", "");
+  // console.log(image);
+  // console.log(hello.replaceAll(")", ""));
+  // console.log(.replace(")", ""));
+  const image = postList[props.index].image;
+  // const image = rawimage.splice(0, -1);
+  // // const realImage = '"' + image + '"';
+  // console.log(realimage);
+  // https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmNjHs%2FbtqDsbi1lwc%2Fvxx5nhhm1P5IrWPfybL6Dk%2Fimg.png
+  // console.log(image);
+
+  // 	.replace('![image](')
+
+  // slice(0, -1);
+  console.log(useSelector((state) => state.comment));
+  React.useEffect(() => {
+    dispatch(postActions.getPostMD());
+  }, []);
+
   return (
     <>
       <CardWrap
@@ -36,13 +68,10 @@ const Card = (props) => {
           history.push(`/detail/${postId}`);
         }}
       >
-        <Head>
-          {/* <CardImg src={postList[props.index].image} /> */}
-          <CardImg src="https://media.vlpt.us/images/moseoh/post/02d1cb92-64f8-437d-8932-472a15d85e01/velog_logo.png" />
-        </Head>
+        <CardImg src={image} />
         <Body>
           <Title>{postList[props.index].title}</Title>
-          <Description>{postList[props.index].content}</Description>
+          <Description>{starContent}</Description>
           <Date>{writtenDate}</Date>
         </Body>
         <Footer>
@@ -51,7 +80,7 @@ const Card = (props) => {
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
-              alignContent: "center",
+              alignItems: "center",
             }}
           >
             <img
@@ -64,10 +93,13 @@ const Card = (props) => {
                 borderRadius: "50%",
               }}
             />
-            <Span>by</Span>{" "}
+            <Span>by</Span>
             <UserName>{postList[props.index].user.nickname}</UserName>
           </div>
-          <div>하트</div>
+          <Like>
+            <img src={"/img/heart.PNG"} />
+            <span>100</span>
+          </Like>
         </Footer>
       </CardWrap>
     </>
@@ -75,39 +107,50 @@ const Card = (props) => {
 };
 
 const CardWrap = styled.div`
-  width: 320px;
-  cursor: pointer;
-  /* margin: 50px; */
-  /* box-shadow: 3px 3px 15px 1px #e5e5e5; */
-  /* &:hover {
-    box-shadow: 3px 3px 15px 1px #9e9e9e;
-    transition: 0.3s; */
-  /* margin-top: 1px; */
-  /* } */
-  /* width: 340px; */
-  /* height: 380px; */
+  width: 20rem;
+  background: white;
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  margin: 1rem;
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
+  box-shadow: 3px 3px 15px 1px #e5e5e5;
+  &:hover {
+    box-shadow: 3px 3px 15px 1px #9e9e9e;
+    transition: 0.3s;
+    cursor: pointer;
+    transform: translateY(-8px);
+  }
+  width: 320px;
+  /* height: 380px; */
+  /* display: flex;
   flex-direction: column;
   justify-content: flex;
   transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   box-shadow: 3px 3px 15px 1px #e5e5e5;
   margin-right: 20px;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: white;
   :hover {
-    cursor: pointer;
-    transform: translateY(-8px);
-    /* box-shadow: 0 3px 40px 0 #ddd; */
-    box-shadow: 3px 3px 15px 1px #9e9e9e;
-  }
+  */
+  /* box-shadow: 0 3px 40px 0 #ddd; */
+  /* box-shadow: 3px 3px 15px 1px #9e9e9e; */
+  /* } */
 `;
-const Head = styled.div`
-  width: 320px;
-  height: 167.01px;
-`;
-const CardImg = styled.img`
-  width: 100%;
+
+const CardImg = styled.div`
+  background-image: url(${(props) => props.src});
   background-size: cover;
+  background-repeat: no-repeat;
+  /* text-align: center;
+  display: flex; */
+  /* justify-content: center;
+  align-items: center;
+  flex-direction: row; */
+  /* margin: auto; */
+  height: 167px;
 `;
 const Body = styled.div`
   display: flex;
@@ -178,13 +221,28 @@ const Image = styled.image`
 
 const Span = styled.span`
   color: rgb(134, 142, 150);
-  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-right: 0.25rem;
 `;
 
 const UserName = styled.span`
   color: #343a40;
   font-size: 12px;
   font-weight: bold;
+`;
+
+const Like = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 1.75rem;
+    height: 1.6rem;
+  }
+  span {
+    font-size: 0.75rem;
+  }
 `;
 
 export default Card;

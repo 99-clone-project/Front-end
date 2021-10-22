@@ -1,8 +1,54 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
   const { commentId, nickname, content, regdate } = props;
+  const url = useSelector((state) => state.router);
+  const postId = url.location.pathname.slice(8);
+  const dispatch = useDispatch();
+
+  // const userName = useSelector(
+  //   (state) => state.comment.commentList[props.index].user.nickname
+  // );
+
+  // console.log(
+  //   "스테이트",
+  //   useSelector((state) => state)
+  // );
+
+  // console.log(
+  //   "스테이트.코멘트.코멘트리스트.프랍스인덱스",
+  //   useSelector((state) => state.comment.commentList[props.index].user.nickname)
+  // );
+  const commentUserName = useSelector(
+    (state) => state.comment.commentList[props.index].user.nickname
+  );
+
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
+
+  React.useEffect(() => {
+    dispatch(commentAction.getCommentDB(postId));
+  }, []);
+
+  const handleDelete = () => {
+    const result = window.confirm("댓글을 정말로 삭제하시겠습니까?");
+    if (result) {
+      dispatch(commentAction.removeCommentDB(commentId));
+    }
+  };
+
+  const handleModify = () => {
+    // const comment = {
+    //   commentId: commentId,
+    //   content: content,
+    // };
+    // console.log("수정버튼누르면", comment);
+    // dispatch(commentAction.editCommentDB(comment));
+  };
 
   return (
     <React.Fragment>
@@ -12,15 +58,21 @@ const CommentItem = (props) => {
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
               <UserName>{nickname}</UserName>
-              <Time>{regdate}</Time>
+              <Time>시간</Time>
             </div>
           </UserInfo>
           <Edit>
-            <span onClick={() => {}}>수정</span>
-            <span onClick={() => {}}>삭제</span>
+            <span onClick={handleModify}>수정</span>
+            <span onClick={handleDelete}>삭제</span>
           </Edit>
         </User>
         <Content>{content}</Content>
+        <PlusComment>
+          <span>
+            <i className="xi-plus-square-o"></i>
+          </span>
+          <span>답글 달기</span>
+        </PlusComment>
       </Container>
     </React.Fragment>
   );
@@ -28,18 +80,20 @@ const CommentItem = (props) => {
 
 CommentItem.defaultProps = {
   commentId: 1,
-  nickname: "닉네임입니다.",
-  content: "댓글내용입니다.",
+  nickname: "닉네임",
+  content: "댓글내용",
   regdate: "1시간 전",
 };
 
 const Container = styled.div`
-  margin-top: 2.5rem;
+  margin: 2.5rem;
   box-sizing: border-box;
   width: 100%;
   max-width: 768px;
   min-width: 452px;
   margin: auto;
+  border-bottom: 1px solid rgb(233, 236, 239);
+  padding: 1.5rem 0 1.5rem 0;
 `;
 
 const User = styled.div`
@@ -79,7 +133,7 @@ const Content = styled.div`
   word-break: keep-all;
   overflow-wrap: break-word;
   text-align: left;
-  margin: 1.5rem 0 2rem 0;
+  margin: 1.5rem 0 0 0;
 `;
 
 const Edit = styled.div`
@@ -92,6 +146,18 @@ const Edit = styled.div`
       text-decoration: underline;
       color: #b0b5c3;
     }
+  }
+`;
+
+const PlusComment = styled.div`
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  color: rgb(18, 184, 134);
+  font-weight: bold;
+  cursor: pointer;
+  i {
+    margin-right: 0.5rem;
   }
 `;
 

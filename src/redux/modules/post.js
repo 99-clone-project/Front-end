@@ -75,7 +75,9 @@ const getPostMD = (postId, post) => {
           const title = post.title;
           // console.log(title);
           const content = post.content;
-          dispatch(getPost(post, title, content));
+          const image = post.image;
+          console.log(title, content, image);
+          dispatch(getPost(post, title, content, image));
         } else {
           // console.log(res);
           dispatch(getPost(postList));

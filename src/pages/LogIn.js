@@ -33,7 +33,7 @@ const Login = (props) => {
   return(
     <Grid>
       <UserBox>
-        <Text bold size="32px">로그인</Text>
+        <Text bold size="26px">로그인</Text>
         <Input 
         label="이메일" 
         placeholder="이메일을 입력하세요" 
@@ -56,16 +56,17 @@ const Login = (props) => {
         }}
         > 로그인 </Btn>
       </UserBox>
+     
     </Grid>
   )
 }
+
 const UserBox = styled.div`
-  border: 1px solid black;
   margin: auto;
   padding: 20px;
   min-width: 250px;
-  width: 80%;
-  height: 80%;
+  width: auto;
+  height: auto;
 `;
 
 const Btn= styled.button`

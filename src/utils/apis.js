@@ -13,4 +13,6 @@ export const apis = {
 
   addComment: (comment) => instance.post("/comments", comment),
   getComment: (postId) => instance.get(`/comments/${postId}`),
+  removeComments: (commentId) => instance.delete(`/comments/${commentId}`),
+  editComment: (commentId) => instance.put(`/comments/${commentId}`),
 };
