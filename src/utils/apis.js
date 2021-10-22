@@ -15,4 +15,6 @@ export const apis = {
   getComment: (postId) => instance.get(`/comments/${postId}`),
   removeComments: (commentId) => instance.delete(`/comments/${commentId}`),
   editComment: (commentId) => instance.put(`/comments/${commentId}`),
+
+  plusLikes: (post) => instance.post(`/posts/{postsId}/like`),
 };
