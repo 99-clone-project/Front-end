@@ -38,8 +38,9 @@ const Detail = (props) => {
   const nickname = post.user.nickname;
 
   // 지금 로그인 한 유저의 닉네임
-  // const rawLoginUser = localStorage.getItem("nickname");
-  // const loginUser = rawLoginUser.split('"')[1];
+  const rawLoginUser = localStorage.getItem("nickname");
+  const loginUser = rawLoginUser.split('"')[1];
+  const initial = loginUser.charAt(0).toUpperCase();
 
   // 게시물 작성 날짜
   const modDate = post.regDate.split("T")[0];
@@ -113,7 +114,7 @@ const Detail = (props) => {
                 border: "none",
               }}
             >
-              {/* <div>{initial}</div>  */}
+              <div style={{ backgroundColor: "transparent" }}>{initial}</div>
             </button>
           </div>
         </Grid>
@@ -126,17 +127,16 @@ const Detail = (props) => {
               <Time>{writtenDate}</Time>
             </div>
             {/* 게시물 작성 한 사람과 현재 로그인 된 유저가 같을때에만 보임*/}
-            {/* {nickname == loginUser ? ( */}
-            <div>
-              <button>수정</button>
-              <button onClick={deletePost}>삭제</button>
-            </div>
-            {/* ) : null} */}
+            {nickname == loginUser ? (
+              <div>
+                <button>수정</button>
+                <button onClick={deletePost}>삭제</button>
+              </div>
+            ) : null}
           </Info>
           <Content>
             <div>
               <Viewer initialValue={content} height="1000px" />
-              {/* <div dangerouslySetInnerHTML={{ __html: content }}></div> */}
             </div>
             <Writer>
               <Image src={"/img/profile.png"} />
@@ -149,6 +149,7 @@ const Detail = (props) => {
       </>
     );
   }
+
   return (
     <>
       <React.Fragment>
@@ -177,12 +178,12 @@ const Detail = (props) => {
               <Separator>·</Separator>
               <Time>{writtenDate}</Time>
             </div>
-            {/* {nickname == loginUser ? ( */}
-            <div>
-              <button>수정</button>
-              <button onClick={deletePost}>삭제</button>
-            </div>
-            {/* ) : null} */}
+            {nickname == loginUser ? (
+              <div>
+                <button>수정</button>
+                <button onClick={deletePost}>삭제</button>
+              </div>
+            ) : null}
           </Info>
 
           <div>

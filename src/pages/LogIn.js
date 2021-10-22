@@ -31,7 +31,7 @@ const Login = (props) => {
   };
 
   return (
-    <Grid>
+    <div>
       <UserBox>
         <Text bold size="26px">
           로그인
@@ -42,11 +42,13 @@ const Login = (props) => {
           _onChange={(e) => {
             loginEmail(e.target.value);
           }}
+          style={{ border: "none" }}
         ></Input>
         <Input
           label="비밀번호"
           placeholder="비밀번호을 입력하세요"
           type="password"
+          style={{ border: "none" }}
           _onChange={(e) => {
             loginPw(e.target.value);
           }}
@@ -60,7 +62,7 @@ const Login = (props) => {
           로그인{" "}
         </Btn>
       </UserBox>
-    </Grid>
+    </div>
   );
 };
 
@@ -69,17 +71,21 @@ const UserBox = styled.div`
   padding: 20px;
   min-width: 250px;
   width: auto;
-  height: auto;
+  height: auo;
 `;
 
 const Btn = styled.button`
   margin: 10px 10px 0px 0px;
-  font-size: 14px;
-  background-color: #343a40;
+  font-size: 16px;
+  background-color: #4cbc9b;
   color: white;
   padding: 10px 15px;
   font-weight: bold;
-  border-radius: 25px;
+  width: 95.99px;
+  height: 47.99px;
+  border: none;
+  position: absolute;
+  right: 36px;
   border: none;
 `;
 

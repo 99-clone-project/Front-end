@@ -109,12 +109,16 @@ const UserBox = styled.div`
 
 const Btn = styled.button`
   margin: 10px 10px 0px 0px;
-  font-size: 14px;
-  background-color: #343a40;
+  font-size: 16px;
+  background-color: #4cbc9b;
   color: white;
   padding: 10px 15px;
   font-weight: bold;
-  border-radius: 25px;
+  width: 95.99px;
+  height: 47.99px;
+  border: none;
+  position: absolute;
+  right: 36px;
   border: none;
 `;
 export default SignUp;
