@@ -12,6 +12,7 @@ const Card = (props) => {
 
   // 게시물추가 할때 올렸던 이미지 카드에 추가
   const image = postList[props.index].image;
+  console.log(image);
 
   // 게시물 작성 날짜
   const modDate = postList[props.index].regDate.split("T")[0].split("-", 3);
