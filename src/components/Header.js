@@ -16,24 +16,8 @@ import { BsSearch } from "react-icons/bs";
 
 const Header = (props) => {
 
-  // const rawLoginUser = localStorage.getItem("nickname");
-  // const loginUser = rawLoginUser.split('"')[1];
-  // const initial = loginUser.charAt(0).toUpperCase();
-  // console.log(initial);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  // console.log(user);
-
-  // React.useEffect(() => {
-  //   dispatch(postActions.getPostMD());
-  // }, []);
-  
-  const tologin = () => {
-    history.push("/login");
-  };
-  const toSignup = () => {
-    history.push("/signup");
-  };
 
   const toLogOut = async () => {
     try {
@@ -50,6 +34,9 @@ const Header = (props) => {
     }
 
   if (user) {
+    const rawLoginUser = localStorage.getItem("nickname");
+    const loginUser = rawLoginUser.split('"')[1];
+    const initial = loginUser.charAt(0).toUpperCase();
     return (
       <Grid is_flex height="63.99px" width="97%">
         <FontBox
@@ -88,7 +75,7 @@ const Header = (props) => {
               border: "none",
             }}
           >
-             {/* <div>{initial}</div>  */}
+             { <div>{initial}</div>  }
           </button>
         </div>
       </Grid>
@@ -102,14 +89,13 @@ const Header = (props) => {
         }}
       >
         <Font>velog</Font>
-        
       </FontBox>
       <div>
         <Btn onClick={() => {
           modalClose() 
         }}>로그인</Btn>
         { modalOpen && <Modal modalClose={modalClose}></Modal>}
-        {/* <Btn onClick={toSignup}>회원가입</Btn> */}
+         {/* <Btn onClick={toSignup}>회원가입</Btn> */}
       </div>
     </Grid>
   );

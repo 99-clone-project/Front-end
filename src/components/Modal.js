@@ -33,7 +33,8 @@ const Modal = ({modalClose}) => {
           <UserBox>
             {!status && <Login/>}
             {status && <SignUp/>}
-              <ChangeDiv>
+          </UserBox>
+          <ChangeDiv>
                 {!status && (
                   <>
                     <Text size="15px">아직 회원이 아니신가요?</Text>
@@ -51,7 +52,6 @@ const Modal = ({modalClose}) => {
                   </>
                 )}
               </ChangeDiv>
-          </UserBox>
         </ModalBox>
       </Container>
       </>
@@ -101,7 +101,7 @@ const WelcomeBox = styled.div`
 const UserBox = styled.div`
   padding: 24px;
   width: 400px;
-  height: 500px;
+  height: auto;
   background-color: #fff;
   box-sizing: border-box
 `;

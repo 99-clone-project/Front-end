@@ -50,6 +50,7 @@ const Detail = (props) => {
   const nickname = post.user.nickname;
   const rawLoginUser = localStorage.getItem("nickname");
   const loginUser = rawLoginUser.split('"')[1];
+  const initial = loginUser.charAt(0).toUpperCase();
 
   const modDate = post.regDate.split("T")[0];
   const yearMonthDay = modDate.split("-", 3);
@@ -83,6 +84,8 @@ const Detail = (props) => {
     }
   };
   if (user) {
+
+    
     return (
       <>
       <Grid is_flex height="63.99px" width="97%">
@@ -122,7 +125,7 @@ const Detail = (props) => {
               border: "none",
             }}
           >
-             {/* <div>{initial}</div>  */}
+             { <div>{initial}</div>  }
           </button>
         </div>
       </Grid>
