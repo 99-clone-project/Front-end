@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import CommentList from "./CommentList";
+import { history } from "../redux/configureStore";
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const CommentWrite = (props) => {
   const postId = url.location.pathname.slice(8);
   const [content, setContent] = React.useState("");
   const commentList = useSelector((state) => state.comment.commentList);
+  const isLogIn = useSelector((state) => state.user.isLogIn);
 
   useEffect(() => {
     dispatch(commentAction.getCommentDB(postId));
@@ -30,18 +32,24 @@ const CommentWrite = (props) => {
     if (content === "") {
       window.alert("내용을 입력해주세요.");
     }
-    // if (user === null) {
-    //   history.push("/");
-    // }
+    if (isLogIn === false) {
+      window.alert("로그인 후 이용해 주세요.");
+      history.push("/login");
+    }
     dispatch(commentAction.addCommentDB(comment));
     dispatch(commentAction.getCommentDB(postId));
+    setContent("");
   };
 
   return (
     <React.Fragment>
       <Count>{commentList?.length}개의 댓글</Count>
       <Container>
-        <Input placeholder="댓글을 작성하세요" onChange={onChange} />
+        <Input
+          placeholder="댓글을 작성하세요"
+          onChange={onChange}
+          value={content}
+        />
         <Button
           onClick={() => {
             setAddComment();

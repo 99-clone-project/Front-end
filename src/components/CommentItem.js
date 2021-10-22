@@ -5,30 +5,32 @@ import { useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
-  const { commentId, nickname, content, regdate } = props;
+  const { commentId, nickname, content, regdate, index } = props;
   const url = useSelector((state) => state.router);
   const postId = url.location.pathname.slice(8);
   const dispatch = useDispatch();
 
-  // const userName = useSelector(
-  //   (state) => state.comment.commentList[props.index].user.nickname
-  // );
-
-  // console.log(
-  //   "스테이트",
-  //   useSelector((state) => state)
-  // );
-
-  // console.log(
-  //   "스테이트.코멘트.코멘트리스트.프랍스인덱스",
-  //   useSelector((state) => state.comment.commentList[props.index].user.nickname)
-  // );
-  const commentUserName = useSelector(
-    (state) => state.comment.commentList[props.index].user.nickname
+  // 댓글유저ID
+  const userEmail = useSelector(
+    (state) => state.comment.commentList[props.index].user.email
+  );
+  const userId = useSelector(
+    (state) => state.comment.commentList[props.index].user.email.split("@")[0]
   );
 
-  // const rawLoginUser = localStorage.getItem("nickname");
-  // const loginUser = rawLoginUser.split('"')[1];
+  //댓글 작성 시간
+  const modDate = useSelector(
+    (state) => state.comment.commentList[props.index].modDate.split("T")[0]
+  );
+  const yearMonthDay = modDate.split("-");
+  const year = yearMonthDay[0];
+  const month = yearMonthDay[1];
+  const day = yearMonthDay[2];
+  const writtenDate = year + "년 " + month + "월 " + day + "일";
+
+  const loginUser = useSelector((state) => state.user.user.sub);
+
+  console.log("찾는중", userEmail);
 
   React.useEffect(() => {
     dispatch(commentAction.getCommentDB(postId));
@@ -50,6 +52,35 @@ const CommentItem = (props) => {
     // dispatch(commentAction.editCommentDB(comment));
   };
 
+  if (userEmail === loginUser) {
+    return (
+      <React.Fragment>
+        <Container>
+          <User>
+            <UserInfo>
+              <img src={"/img/profile.png"} />
+              <div style={{ margin: "auto" }}>
+                <UserName>{userId}</UserName>
+                <Time>{writtenDate}</Time>
+              </div>
+            </UserInfo>
+            <Edit>
+              <span onClick={handleModify}>수정</span>
+              <span onClick={handleDelete}>삭제</span>
+            </Edit>
+          </User>
+          <Content>{content}</Content>
+          <PlusComment>
+            <span>
+              <i className="xi-plus-square-o"></i>
+            </span>
+            <span>답글 달기</span>
+          </PlusComment>
+        </Container>
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <Container>
@@ -57,14 +88,10 @@ const CommentItem = (props) => {
           <UserInfo>
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
-              <UserName>{nickname}</UserName>
-              <Time>시간</Time>
+              <UserName>{userId}</UserName>
+              <Time>{writtenDate}</Time>
             </div>
           </UserInfo>
-          <Edit>
-            <span onClick={handleModify}>수정</span>
-            <span onClick={handleDelete}>삭제</span>
-          </Edit>
         </User>
         <Content>{content}</Content>
         <PlusComment>
