@@ -14,6 +14,8 @@ import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { RiBookmarkFill } from "react-icons/ri";
 
 const Detail = (props) => {
+  // const [like, setLike]=React.useState(0)
+
   const dispatch = useDispatch();
 
   // 지금 보고있는 게시물의 postId, title, content
@@ -31,8 +33,8 @@ const Detail = (props) => {
   const nickname = post.user.nickname;
 
   // 지금 로그인 한 유저의 닉네임
-  const rawLoginUser = localStorage.getItem("nickname");
-  const loginUser = rawLoginUser.split('"')[1];
+  // const rawLoginUser = localStorage.getItem("nickname");
+  // const loginUser = rawLoginUser.split('"')[1];
 
   // 게시물 작성 날짜
   const modDate = post.regDate.split("T")[0];
@@ -61,14 +63,34 @@ const Detail = (props) => {
             <Time>{writtenDate}</Time>
           </div>
           {/* 게시물 작성 한 사람과 현재 로그인 된 유저가 같을때에만 보임*/}
-          {nickname === loginUser ? (
-            <div>
-              <button>수정</button>
-              <button onClick={deletePost}>삭제</button>
-            </div>
-          ) : null}
+          {/* {nickname === loginUser ? ( */}
+          <div>
+            <button>수정</button>
+            <button onClick={deletePost}>삭제</button>
+          </div>
+          {/* ) : null} */}
         </Info>
+
         <div>
+          <Like>
+            <div>
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z"
+                ></path>
+              </svg>
+            </div>
+            <p>100</p>
+            <div>
+              <svg width="24" height="24" viewBox="0 0 24 24" class="share">
+                <path
+                  fill="currentColor"
+                  d="M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z"
+                ></path>
+              </svg>
+            </div>
+          </Like>
           <Box>
             <BoxContent>{userId + " 님의 게시물 입니다."}</BoxContent>
             <RiBookmarkFill
@@ -105,6 +127,7 @@ const Detail = (props) => {
               </BoxFooterRight>
             </BoxFooter>
           </Box>
+
           <div>
             <Viewer initialValue={content} height="1000px" />
           </div>
@@ -119,6 +142,38 @@ const Detail = (props) => {
     </React.Fragment>
   );
 };
+
+const Like = styled.div`
+  position: fixed;
+  top: 112px;
+  left: 550px;
+
+  width: 4rem;
+  background: rgb(248, 249, 250);
+  border: 1px solid rgb(241, 243, 245);
+  border-radius: 2rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  div {
+    transform: scale(1);
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid rgb(173, 181, 189);
+    border-radius: 1.5rem;
+    color: rgb(134, 142, 150);
+    cursor: pointer;
+    z-index: 5;
+  }
+`;
 
 const Box = styled.div`
   position: relative;
