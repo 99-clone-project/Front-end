@@ -23,6 +23,7 @@ velog의 기본적인 기능으로 로그인, 회원가입, 게시물 작성, �
 
 ## 🎬 실행화면
 
+<<<<<<< HEAD
 유튜브 링크 : https://youtu.be/rn1iQ7t_e7E
 
 ## ⚙️ 기술 스택 및 툴
@@ -35,6 +36,14 @@ velog의 기본적인 기능으로 로그인, 회원가입, 게시물 작성, �
 <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=MySQL&logoColor=white"/> 
 <img src="https://img.shields.io/badge/Spring Boot-2.5.5-339933?style=flat-square&logo=Spring Boot&logoColor=white"/> 
 <img src="https://img.shields.io/badge/Gradle-7.0.2-000000?style=flat-square&logo=Gradle&logoColor=white"/>
+=======
+유튜브 링크 : 유튜브 주소넣기
+
+## ⚙️ 기술 스택 및 툴
+
+## ✨ 17log 소개
+
+> > > > > > > acc1c7c739e936f0ae6ef4aaffd59597b4c09803
 
 ## 🙋 팀원
 
@@ -43,14 +52,36 @@ velog의 기본적인 기능으로 로그인, 회원가입, 게시물 작성, �
 
 ## 🌎 API
 
+<<<<<<< HEAD
 https://locrian-cabbage-797.notion.site/f0f96c98f8de414fb115f6a7b2f9c1dc?v=53d8b020ecf848deac033fd177375308
+=======
+API주소 넣기
+
+> > > > > > > acc1c7c739e936f0ae6ef4aaffd59597b4c09803
 
 ## ⏳ 팀 프로젝트 기간
 
 - 2021.10.18 ~ 2021.10.22(5일)
 
+<<<<<<< HEAD
+
 ## ⌨️ 느낀점 / 어려웠던 점
 
 - 김다원 회고 ([Velog](주소))
 - 박새봄 회고 ([Velog](주소))
-- 배수인 회고 ([Velog](주소))
+- # 배수인 회고 ([Velog](주소))
+
+## ✨ 주요 기능
+
+1. 로그인 & 회원가입
+
+2. post
+
+3. 댓글
+
+## ⌨️ 느낀점 / 어려웠던 점
+
+- 김다원 회고 ([Velog](주소)
+- 박새봄 회고 ([Velog](주소)
+- 배수인 회고 ([Velog](주소)
+  > > > > > > > acc1c7c739e936f0ae6ef4aaffd59597b4c09803

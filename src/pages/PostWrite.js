@@ -22,12 +22,12 @@ const PostWrite = () => {
     const contentHTML = contentRef.current.getInstance().getHTML();
     const contentMarkdown = contentRef.current.getInstance().getMarkdown();
 
-    // const hello = contentMarkdown.split("](")[1];
-    // const image = hello.split(")")[0];
+    const hello = contentMarkdown.split("](")[1];
+    const image = hello.split(")")[0];
     const post = {
       title: title,
       content: contentMarkdown,
-      // image: image,
+      image: image,
     };
     dispatch(postActions.addPostMD(post));
   };
