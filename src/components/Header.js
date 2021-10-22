@@ -13,20 +13,14 @@ import { fontFamily, fontSize } from "@mui/system";
 import { BsSearch } from "react-icons/bs";
 
 const Header = (props) => {
-  // const rawLoginUser = localStorage.getItem("nickname");
-  // const loginUser = rawLoginUser.split('"')[1];
-  // const initial = loginUser.charAt(1).toUpperCase();
-  // console.log(initial);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  // console.log(user);
 
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);
 
   const postList = useSelector((state) => state.post.list);
-  // console.log(postList);
 
   const tologin = () => {
     history.push("/login");

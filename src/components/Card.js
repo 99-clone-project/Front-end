@@ -1,62 +1,31 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-// import Grid from "../elements/Grid";
+
 import profile from "../assets/profile.png";
-// import PostList from "../pages/PostList";
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { useDispatch } from "react-redux";
 
 const Card = (props) => {
   const dispatch = useDispatch();
-
   const postList = useSelector((state) => state.post.list);
-  // console.log("스테이트.포스트.리스트", postList);
-  // console.log("postList", postList);
-  // console.log("props", props);
-  // console.log(props.postList);
 
-  const modDate = postList[props.index].regDate.split("T")[0];
-  const yearMonthDay = modDate.split("-", 3);
-  const year = yearMonthDay[0];
-  const month = yearMonthDay[1];
-  const day = yearMonthDay[2];
-  const writtenDate = year + "년 " + month + "월 " + day + "일";
-  // console.log(writtenDate);
+  // 게시물추가 할때 올렸던 이미지 카드에 추가
+  const image = postList[props.index].image;
 
+  // 게시물 작성 날짜
+  const modDate = postList[props.index].regDate.split("T")[0].split("-", 3);
+  const year = modDate[0];
+  const month = modDate[1];
+  const day = modDate[2];
+  const postdate = year + "년 " + month + "월 " + day + "일";
+
+  // 카드에 마크다운 언어 없애기 위해서
   const postId = props.post.postId;
-  // console.log(postId);
-  // const postUser = props.post.user.nickname;
-  // console.log(postList[props.index]);
-  // console.log(postList[props.index].content);
-
-  // function regExp() {
-  //   let str = postList[props.index].content;
-  //   // return content;
-  // }
-
   const content = postList[props.index].content.split("![")[0];
-  // console.log(content.replaceAll("#", ""));
   const hashContent = content.replaceAll("#", "");
   const starContent = hashContent.replaceAll("*", "");
 
-  // const hello = postList[props.index].image;
-  // const image = hello.replaceAll(")", "");
-  // console.log(image);
-  // console.log(hello.replaceAll(")", ""));
-  // console.log(.replace(")", ""));
-  const image = postList[props.index].image;
-  // const image = rawimage.splice(0, -1);
-  // // const realImage = '"' + image + '"';
-  // console.log(realimage);
-  // https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmNjHs%2FbtqDsbi1lwc%2Fvxx5nhhm1P5IrWPfybL6Dk%2Fimg.png
-  // console.log(image);
-
-  // 	.replace('![image](')
-
-  // slice(0, -1);
-  console.log(useSelector((state) => state.comment));
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);
@@ -72,30 +41,14 @@ const Card = (props) => {
         <Body>
           <Title>{postList[props.index].title}</Title>
           <Description>{starContent}</Description>
-          <Date>{writtenDate}</Date>
+          <Date>{postdate}</Date>
         </Body>
         <Footer>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <img
-              src={"/img/profile.png"}
-              style={{
-                width: "23.99px",
-                height: "23.99px",
-                margin: "0 8px 0 0",
-                backgroundSize: "cover",
-                borderRadius: "50%",
-              }}
-            />
+          <FooterLeft>
+            <Profile src={"/img/profile.png"} />
             <Span>by</Span>
             <UserName>{postList[props.index].user.nickname}</UserName>
-          </div>
+          </FooterLeft>
           <Like>
             <img src={"/img/heart.PNG"} />
             <span>100</span>
@@ -107,7 +60,7 @@ const Card = (props) => {
 };
 
 const CardWrap = styled.div`
-  width: 20rem;
+  width: 320px;
   background: white;
   border-radius: 4px;
   box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
@@ -123,23 +76,7 @@ const CardWrap = styled.div`
     cursor: pointer;
     transform: translateY(-8px);
   }
-  width: 320px;
-  /* height: 380px; */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex;
-  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
-  box-shadow: 3px 3px 15px 1px #e5e5e5;
-  margin-right: 20px;
-  border-radius: 4px;
-  background-color: white;
-  :hover {
-  */
-  /* box-shadow: 0 3px 40px 0 #ddd; */
-  /* box-shadow: 3px 3px 15px 1px #9e9e9e; */
-  /* } */
 `;
-
 const CardImg = styled.div`
   background-image: url(${(props) => props.src});
   background-size: cover;
@@ -194,7 +131,6 @@ const Description = styled.p`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 `;
-
 const Date = styled.div`
   height: 17.78px;
   font-size: 12px;
@@ -210,28 +146,30 @@ const Footer = styled.div`
   cursor: pointer;
   border-top: 1px solid rgb(248, 249, 250);
 `;
-const Image = styled.image`
+const FooterLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+const Profile = styled.img`
   width: 23.99px;
   height: 23.99px;
   margin: 0 8px 0 0;
-  /* background-color: white; */
   background-size: cover;
   border-radius: 50%;
 `;
-
 const Span = styled.span`
   color: rgb(134, 142, 150);
   font-size: 0.75rem;
   line-height: 1.5;
   margin-right: 0.25rem;
 `;
-
 const UserName = styled.span`
   color: #343a40;
   font-size: 12px;
   font-weight: bold;
 `;
-
 const Like = styled.div`
   display: flex;
   justify-content: center;

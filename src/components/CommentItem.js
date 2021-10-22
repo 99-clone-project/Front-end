@@ -30,27 +30,19 @@ const CommentItem = (props) => {
 
   const loginUser = useSelector((state) => state.user.user.sub);
 
-  console.log("찾는중", userEmail);
-
   React.useEffect(() => {
     dispatch(commentAction.getCommentDB(postId));
   }, []);
 
   const handleDelete = () => {
     const result = window.confirm("댓글을 정말로 삭제하시겠습니까?");
+
     if (result) {
       dispatch(commentAction.removeCommentDB(commentId));
     }
   };
 
-  const handleModify = () => {
-    // const comment = {
-    //   commentId: commentId,
-    //   content: content,
-    // };
-    // console.log("수정버튼누르면", comment);
-    // dispatch(commentAction.editCommentDB(comment));
-  };
+  const handleModify = () => {};
 
   if (userEmail === loginUser) {
     return (

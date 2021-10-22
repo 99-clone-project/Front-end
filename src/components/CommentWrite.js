@@ -21,7 +21,6 @@ const CommentWrite = (props) => {
   const onChange = (e) => {
     setContent(e.target.value);
   };
-  // console.log(content);
 
   const setAddComment = () => {
     const comment = {

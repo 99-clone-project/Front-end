@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { history } from "../redux/configureStore";
-
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Card from "../components/Card";
-// import Grid from "../elements/Grid";
-import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+
+// React Icons
 import { ImClock } from "react-icons/im";
 import { BsGraphUp } from "react-icons/bs";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChartLine } from "@fortawesome/free-solid-svg-icons";
-// import { faClock } from "@fortawesome/free-solid-svg-icons";
-// import { faBars } from "@fortawesome/free-solid-svg-icons";
-
 const PostList = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
-  // console.log(postList);
 
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
@@ -27,7 +20,11 @@ const PostList = () => {
   return (
     <>
       <Wrapper>
-        <Button style={{ color: "#343a40" }}>
+        {/* 상단에 있는 트렌딩, 최신 버튼 */}
+        <Button
+          style={{ color: "#343a40" }}
+          onClick={() => window.alert("힝 속았지~ 😎")}
+        >
           <div
             style={{
               marginRight: "10px",
@@ -40,7 +37,7 @@ const PostList = () => {
               marginRight: "10px",
             }}
           />
-          트렌딩
+          <span style={{ width: "50px" }}>트렌딩</span>
         </Button>
         <Button style={{ color: "#343a40" }}>
           <div
@@ -84,6 +81,7 @@ const PostList = () => {
         </select>
         <HamDIv>
           <BiDotsVerticalRounded
+            onClick={() => window.alert("힝 속았지~ 😎")}
             style={{
               width: "25px",
               height: "25px",
@@ -113,13 +111,12 @@ const PostList = () => {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   height: 60px;
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
-  background-color: #f9f9f9;
   margin-top: 1.5rem;
 `;
 
@@ -135,7 +132,7 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9f9f9;
+
   ${(props) =>
     props.is_url
       ? `
