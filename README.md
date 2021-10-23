@@ -26,7 +26,7 @@ velog의 기본적인 기능으로 로그인, 회원가입, 게시물 작성, �
 
 ## 💻 웹 사이트
 
-웹사이트 주소넣기
+http://17log.s3-website.ap-northeast-2.amazonaws.com/
 
 
 ## 🎬 실행화면
@@ -52,12 +52,12 @@ https://locrian-cabbage-797.notion.site/f0f96c98f8de414fb115f6a7b2f9c1dc?v=53d8b
 ## 🙋 팀원
 
 - Front-end(React): 김다원, 박새봄, 배수인
-- Back-end(Node.js): 송지은, 홍재환
+- Back-end(Spring): 송지은, 홍재환
 
 
 ## ⌨️ 느낀점
 
-- 김다원 회고 ([Velog](주소)
-- 박새봄 회고 ([Velog](주소)
-- 배수인 회고 ([Velog](주소)
+- 김다원 회고 ([Velog](주소))
+- 박새봄 회고 ([Velog](주소))
+- 배수인 회고 ([Velog](주소))
 
