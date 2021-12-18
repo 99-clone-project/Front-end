@@ -59,5 +59,5 @@ https://locrian-cabbage-797.notion.site/f0f96c98f8de414fb115f6a7b2f9c1dc?v=53d8b
 
 - 김다원 회고 ([Velog](주소))
 - 박새봄 회고 ([Velog](주소))
-- 배수인 회고 ([Velog](주소))
+- 배수인 회고 ([Blog](https://blog.naver.com/waterhuman_b/222546639464))
 
